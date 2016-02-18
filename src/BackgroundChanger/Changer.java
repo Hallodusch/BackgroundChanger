@@ -33,13 +33,13 @@ public class Changer{
 
 	}
 
-	public void changeBackground(String path){	
+	public boolean changeBackground(String path){	
 
-		SPI.INSTANCE.SystemParametersInfo(
+		return (SPI.INSTANCE.SystemParametersInfo(
 				new UINT_PTR(SPI.SPI_SETDESKWALLPAPER), 
 				new UINT_PTR(0), 
 				path, 
-				new UINT_PTR(SPI.SPIF_UPDATEINIFILE | SPI.SPIF_SENDWININICHANGE));
+				new UINT_PTR(SPI.SPIF_UPDATEINIFILE | SPI.SPIF_SENDWININICHANGE)));
 	}
 
 }
