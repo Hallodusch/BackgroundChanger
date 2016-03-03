@@ -20,8 +20,10 @@ public class GUI extends JFrame {
 	protected JPanel panel = new JPanel();
 	
 	public GUI(String windowTitle, Dimension dim){
+		setTitle(windowTitle);
+		setMaximumSize(new Dimension(1600, 900));
 		setSize(dim);
-		FlowLayout layout = new FlowLayout();
+		GridLayout layout = new GridLayout(2,2);
 		panel.setLayout(layout);
 		panel.setSize(this.getWidth(), this.getHeight());
 		setLocationRelativeTo(null);
