@@ -1,24 +1,22 @@
 package BackgroundChanger;
 
-import java.net.URL;
+import java.io.IOException;
 
-public class API {
+import org.json.JSONObject;
+
+
+
+abstract public class API {
 
 	private final String api_key;
-	private final String api_secret;
 	private RequestBehaviour requestBehaviour;
 	
-	public API(String api_key, String api_secret){
+	public API(String api_key){
+		
 		this.api_key = api_key;
-		this.api_secret = api_secret;
 	}
 	
-	public String connectToSite(URL url) {
-		////////////////////
-		//NOT IMPLEMENTED///
-		////////////////////
-		return null;
-	}
+	abstract public JSONObject getToken() throws IOException;
 	
 	public RequestBehaviour getRequestBehaviour(){ return this.requestBehaviour;}
 	public void setRequestBehaviour(RequestBehaviour requestBehaviour){

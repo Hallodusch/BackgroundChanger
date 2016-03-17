@@ -1,6 +1,7 @@
 package BackgroundChanger;
 
 import java.awt.Dimension;
+import java.io.IOException;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -8,7 +9,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class BackgroundChanger extends Thread{
 	private static MainWindow window;
-	private static UserInteraction interaction;
+	private UserInteraction interaction;
 	
 	
 	public static void main(String[] args) {
@@ -29,12 +30,21 @@ public class BackgroundChanger extends Thread{
 			e.printStackTrace();
 		}
 		
-		window = new MainWindow(new Dimension(600,400));
+		API redditAPI = new RedditAPI();
+		try {
+			System.out.println(redditAPI.getToken().toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		window = new MainWindow(new Dimension(600,400));
 		
-		interaction = new UserInteraction();
-		Thread t = new Thread(interaction);
-		t.start();
+//		interaction = new UserInteraction();
+//		Thread t = new Thread(interaction);
+//		t.start();
 
+		
+		
 	}
 
 }
