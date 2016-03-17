@@ -1,17 +1,40 @@
 package BackgroundChanger;
 
-public class BackgroundChanger{
+import java.awt.Dimension;
 
-	public static void main(String[] args) {
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
-		Changer myChanger = new Changer();
-		String path = "C:\\Users\\vmadmin\\workspace\\BackgroundChanger\\src\\pics\\opel_corsa.jpg";
-		System.out.println("TestTest");
-		myChanger.changeBackground(path);
-		
-	}
 
+public class BackgroundChanger extends Thread{
+	private static MainWindow window;
+	private static UserInteraction interaction;
 	
+	
+	public static void main(String[] args) {
+		
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		window = new MainWindow(new Dimension(600,400));
+		
+		interaction = new UserInteraction();
+		Thread t = new Thread(interaction);
+		t.start();
 
+	}
 
 }

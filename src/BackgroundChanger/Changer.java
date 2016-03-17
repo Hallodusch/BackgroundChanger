@@ -1,6 +1,8 @@
 package BackgroundChanger;
 
+import java.io.File;
 import java.util.HashMap;
+
 import com.sun.jna.Native;
 import com.sun.jna.platform.win32.WinDef.UINT_PTR;
 import com.sun.jna.win32.StdCallLibrary;
@@ -33,13 +35,21 @@ public class Changer{
 
 	}
 
-	public void changeBackground(String path){	
+	public static boolean changeBackground(String path){	
 
-		SPI.INSTANCE.SystemParametersInfo(
+		return (SPI.INSTANCE.SystemParametersInfo(
 				new UINT_PTR(SPI.SPI_SETDESKWALLPAPER), 
 				new UINT_PTR(0), 
 				path, 
-				new UINT_PTR(SPI.SPIF_UPDATEINIFILE | SPI.SPIF_SENDWININICHANGE));
+				new UINT_PTR(SPI.SPIF_UPDATEINIFILE | SPI.SPIF_SENDWININICHANGE)));
+	}
+	public static boolean changeBackground(File file){	
+
+		return (SPI.INSTANCE.SystemParametersInfo(
+				new UINT_PTR(SPI.SPI_SETDESKWALLPAPER), 
+				new UINT_PTR(0), 
+				file.getAbsolutePath(), 
+				new UINT_PTR(SPI.SPIF_UPDATEINIFILE | SPI.SPIF_SENDWININICHANGE)));
 	}
 
 }
