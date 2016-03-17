@@ -7,7 +7,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 
 public class BackgroundChanger extends Thread{
-	private static GUI myGUI;
+	private static MainWindow window;
+	private static UserInteraction interaction;
 	
 	
 	public static void main(String[] args) {
@@ -28,9 +29,9 @@ public class BackgroundChanger extends Thread{
 			e.printStackTrace();
 		}
 		
-		MainWindow window = new MainWindow(new Dimension(600,400));
+		window = new MainWindow(new Dimension(600,400));
 		
-		UserInteraction interaction = new UserInteraction();
+		interaction = new UserInteraction();
 		Thread t = new Thread(interaction);
 		t.start();
 
