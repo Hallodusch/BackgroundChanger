@@ -31,12 +31,14 @@ public class BackgroundChanger extends Thread{
 		}
 		
 		API redditAPI = new RedditAPI();
-		try {
-			System.out.println(redditAPI.getToken().toString());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		redditAPI.requestData("http://www.reddit.com/r/wallpapers/search.json?sort=best&limit=2");
+//		try {
+//			System.out.println(redditAPI.getToken().toString());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 //		window = new MainWindow(new Dimension(600,400));
 		
 //		interaction = new UserInteraction();

@@ -34,7 +34,9 @@ public class RedditAPI extends API {
 		setRequestBehaviour(new RedditBehaviour());
 	}
 	
-	
+	public String requestData(String url){
+		return requestBehaviour.requestData(new GenericUrl(url));
+	}
 	
 	
 	public JSONObject getToken() throws IOException {

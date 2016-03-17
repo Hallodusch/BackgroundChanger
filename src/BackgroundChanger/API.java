@@ -4,17 +4,21 @@ import java.io.IOException;
 
 import org.json.JSONObject;
 
+import com.google.api.client.http.GenericUrl;
+
 
 
 abstract public class API {
 
 	private final String api_key;
-	private RequestBehaviour requestBehaviour;
+	protected RequestBehaviour requestBehaviour;
 	
 	public API(String api_key){
 		
 		this.api_key = api_key;
 	}
+	
+	abstract public String requestData(String url);
 	
 	abstract public JSONObject getToken() throws IOException;
 	
