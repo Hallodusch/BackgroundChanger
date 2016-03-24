@@ -18,7 +18,7 @@ abstract public class API {
 		this.api_key = api_key;
 	}
 	
-	abstract public String requestData(String url);
+	abstract public String requestData(String url) throws Exception;
 	
 	abstract public JSONObject getToken() throws IOException;
 	

@@ -17,4 +17,10 @@ public class TumblrAPI extends API {
 		return null;
 	}
 
+	@Override
+	public String requestData(String url) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

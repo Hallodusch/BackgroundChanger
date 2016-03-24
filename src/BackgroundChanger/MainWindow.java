@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
@@ -23,15 +24,17 @@ public class MainWindow extends JFrame{
 
 	private JButton changeBackground = new JButton("Hintergrund ändern");
 	private JButton chooseFile= new JButton("Bild auswählen");
+	private JButton useUrl = new JButton("URL benutzen");
 	private JFileChooser fileDialog = new JFileChooser("Bild auswählen");
 	private JLabel fileChooseLabel = new JLabel();
-	private File selectedFile;
 	private JTextField fileText;
+	private JTextField urlEntry;
+	private File selectedFile;
 	private JPanel upperRight = new JPanel(new FlowLayout());
 	private JPanel upperLeft = new JPanel(new FlowLayout());
 	private JPanel lowerRight = new JPanel(new FlowLayout());
 	private JPanel lowerLeft = new JPanel(new FlowLayout());
-	private JPanel panel = new JPanel();
+	private JPanel panel = new JPanel(new GridBagLayout());
 	
 	public MainWindow(Dimension dim){
 		setTitle("Background Changer");
@@ -46,6 +49,7 @@ public class MainWindow extends JFrame{
 		fileDialog.setCurrentDirectory(new File(System.getProperty("user.home")));
 
 		fileText = createTextField(new Dimension(150, 20), false, false);
+		urlEntry = createTextField(new Dimension(150, 20), true, true);
 		
 		fileChooseLabel.setText("Wählen Sie ein Bild aus");
 		fileChooseLabel.setFont(new Font(fileText.getFont().getName(), 1, fileText.getFont().getSize() + 4));
@@ -92,6 +96,9 @@ public class MainWindow extends JFrame{
 
 		});
 		
+		useUrl.addActionListener(e -> UserInteraction.setImageFromReddit(urlEntry.getText(), 
+				"C:/Users/vmadmin/Desktop"));
+		
 		panel.setLayout(new GridLayout(2,2));
 		panel.setSize(this.getWidth(), this.getHeight());
 		
@@ -100,11 +107,14 @@ public class MainWindow extends JFrame{
 		panel.add(lowerLeft);
 		panel.add(lowerRight);
 		
+		
 		upperLeft.add(fileChooseLabel);
 		lowerLeft.add(fileText);
 		lowerLeft.add(chooseFile);
 		lowerRight.add(changeBackground);
-
+		upperRight.add(urlEntry);
+		upperRight.add(useUrl);
+		
 		pack();
 		setVisible(true);
 	}
@@ -125,7 +135,7 @@ public class MainWindow extends JFrame{
 		return fileText;
 	}
 	
-	private void chooseFile(MouseEvent e){
+	private File chooseFile(MouseEvent e){
 		int result = fileDialog.showOpenDialog( (Component) e.getSource());
 		if (result == JFileChooser.APPROVE_OPTION) {
 
@@ -136,11 +146,12 @@ public class MainWindow extends JFrame{
 			fileText.setPreferredSize(new Dimension((int) (fileText.getText().length() * 5.6),20));
 			pack();
 			setLocationRelativeTo(null);
-
+			return selectedFile;
 		}
+		return null;
 	}
 
-	private void chooseFile(ActionEvent e){
+	private File chooseFile(ActionEvent e){
 		int result = fileDialog.showOpenDialog( (Component) e.getSource());
 		if (result == JFileChooser.APPROVE_OPTION) {
 
@@ -151,8 +162,10 @@ public class MainWindow extends JFrame{
 			fileText.setPreferredSize(new Dimension((int) (fileText.getText().length() * 5.6),20));
 			pack();
 			setLocationRelativeTo(null);
+			return selectedFile;
 
 		}
+		return null;
 	}
 
 }

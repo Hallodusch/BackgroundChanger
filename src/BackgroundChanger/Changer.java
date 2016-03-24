@@ -40,15 +40,17 @@ public class Changer{
 		return (SPI.INSTANCE.SystemParametersInfo(
 				new UINT_PTR(SPI.SPI_SETDESKWALLPAPER), 
 				new UINT_PTR(0), 
-				path, 
+				BackgroundChanger.convertToJPG(new File(path)).getAbsolutePath(), 
 				new UINT_PTR(SPI.SPIF_UPDATEINIFILE | SPI.SPIF_SENDWININICHANGE)));
 	}
+	
 	public static boolean changeBackground(File file){	
+		System.out.println("Setze Hintergrund: "+ file.getAbsolutePath());
 
 		return (SPI.INSTANCE.SystemParametersInfo(
 				new UINT_PTR(SPI.SPI_SETDESKWALLPAPER), 
 				new UINT_PTR(0), 
-				file.getAbsolutePath(), 
+				BackgroundChanger.convertToJPG(file).getAbsolutePath(), 
 				new UINT_PTR(SPI.SPIF_UPDATEINIFILE | SPI.SPIF_SENDWININICHANGE)));
 	}
 
