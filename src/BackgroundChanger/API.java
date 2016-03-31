@@ -10,7 +10,7 @@ abstract public class API {
 
 	protected RequestBehaviour requestBehaviour;
 	
-	abstract public String requestData(String url) throws Exception;
+	abstract public String requestLink(String url) throws Exception;
 	
 	abstract public JSONObject getToken() throws IOException;
 	

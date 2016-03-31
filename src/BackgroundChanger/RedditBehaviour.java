@@ -33,11 +33,11 @@ public class RedditBehaviour implements RequestBehaviour {
 		RedditAPI redditAPI = new RedditAPI();
 		URL imageUrl = null;
 		try {
-			imageUrl = new URL(redditAPI.requestData(url));
+			imageUrl = new URL(redditAPI.requestLink(url));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return imageUrl;
 	}
 }

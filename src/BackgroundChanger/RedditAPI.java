@@ -36,7 +36,7 @@ public class RedditAPI extends API {
 		setRequestBehaviour(new RedditBehaviour());
 	}
 	
-	public String requestData(String url) throws Exception{
+	public String requestLink(String url) throws Exception{
 		//Open the conncetion
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();

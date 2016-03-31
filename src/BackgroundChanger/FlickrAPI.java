@@ -16,7 +16,7 @@ public class FlickrAPI extends API {
 	}
 
 	@Override
-	public String requestData(String url) {
+	public String requestLink(String url) {
 		// TODO Auto-generated method stub
 		return null;
 	}
