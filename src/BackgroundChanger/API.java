@@ -1,11 +1,7 @@
 package BackgroundChanger;
 
 import java.io.IOException;
-
-import javax.json.JsonObject;
-
 import org.json.JSONObject;
-
 import com.google.api.client.http.GenericUrl;
 
 

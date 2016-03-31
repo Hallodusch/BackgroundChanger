@@ -1,9 +1,6 @@
 package BackgroundChanger;
 
 import java.io.IOException;
-
-import javax.json.JsonObject;
-
 import org.json.JSONObject;
 
 public class FlickrAPI extends API {

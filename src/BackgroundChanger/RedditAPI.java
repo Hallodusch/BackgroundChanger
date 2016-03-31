@@ -7,11 +7,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.apache.commons.logging.Log;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpContent;
 import com.google.api.client.http.HttpRequest;
@@ -23,10 +21,8 @@ import com.google.api.client.http.UrlEncodedContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonToken;
 import com.sun.jna.platform.win32.WinUser.HARDWAREINPUT;
-
 import java.util.UUID;
 
-import javax.json.JsonObject;
 
 
 public class RedditAPI extends API {	
