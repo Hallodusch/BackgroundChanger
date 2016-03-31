@@ -13,20 +13,24 @@ import java.awt.event.MouseListener;
 import java.io.File;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 
 public class MainWindow extends JFrame{
 
 	public static final String SAVE_LOCATION = "C:/Users/vmadmin/Desktop";
 	
+	
 	private JButton changeBackground = new JButton("Hintergrund ändern");
 	private JButton chooseFile= new JButton("Bild auswählen");
 	private JButton useUrl = new JButton("URL benutzen");
+	private JCheckBox activated = new JCheckBox("aktiviert");
 	private JFileChooser fileDialog = new JFileChooser("Bild auswählen");
 	private JLabel fileChooseLabel = new JLabel();
 	private JTextField fileText;
@@ -113,7 +117,9 @@ public class MainWindow extends JFrame{
 		upperLeft.add(fileChooseLabel);
 		lowerLeft.add(fileText);
 		lowerLeft.add(chooseFile);
+		
 		lowerRight.add(changeBackground);
+		lowerLeft.add(activated);
 		upperRight.add(urlEntry);
 		upperRight.add(useUrl);
 		
