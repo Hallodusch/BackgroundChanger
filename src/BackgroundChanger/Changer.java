@@ -35,23 +35,31 @@ public class Changer{
 
 	}
 
-	public static boolean changeBackground(String path){	
+	public static boolean changeBackground(String path)throws NullPointerException{	
 
-		return (SPI.INSTANCE.SystemParametersInfo(
-				new UINT_PTR(SPI.SPI_SETDESKWALLPAPER), 
-				new UINT_PTR(0), 
-				BackgroundChanger.convertToJPG(new File(path)).getAbsolutePath(), 
-				new UINT_PTR(SPI.SPIF_UPDATEINIFILE | SPI.SPIF_SENDWININICHANGE)));
+		if(new File(path).canRead()){
+			return (SPI.INSTANCE.SystemParametersInfo(
+					new UINT_PTR(SPI.SPI_SETDESKWALLPAPER), 
+					new UINT_PTR(0), 
+					BackgroundChanger.convertToJPG(new File(path)).getAbsolutePath(), 
+					new UINT_PTR(SPI.SPIF_UPDATEINIFILE | SPI.SPIF_SENDWININICHANGE)));
+		}else{
+			throw new NullPointerException("Hier ist die Exception");
+		}
 	}
-	
-	public static boolean changeBackground(File file){	
-		System.out.println("Setze Hintergrund: "+ file.getAbsolutePath());
 
-		return (SPI.INSTANCE.SystemParametersInfo(
-				new UINT_PTR(SPI.SPI_SETDESKWALLPAPER), 
-				new UINT_PTR(0), 
-				BackgroundChanger.convertToJPG(file).getAbsolutePath(), 
-				new UINT_PTR(SPI.SPIF_UPDATEINIFILE | SPI.SPIF_SENDWININICHANGE)));
+	public static boolean changeBackground(File file)throws NullPointerException{	
+		System.out.println("Setze Hintergrund: "+ file.getAbsolutePath());
+		if(file.canRead()){
+			return (SPI.INSTANCE.SystemParametersInfo(
+					new UINT_PTR(SPI.SPI_SETDESKWALLPAPER), 
+					new UINT_PTR(0), 
+					BackgroundChanger.convertToJPG(file).getAbsolutePath(), 
+					new UINT_PTR(SPI.SPIF_UPDATEINIFILE | SPI.SPIF_SENDWININICHANGE)));
+		}else{
+			throw new NullPointerException("Hier ist die Exception");
+		}
+
 	}
 
 }

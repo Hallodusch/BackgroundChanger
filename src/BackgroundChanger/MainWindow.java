@@ -22,6 +22,8 @@ import javax.swing.JTextField;
 
 public class MainWindow extends JFrame{
 
+	public static final String SAVE_LOCATION = "C:/Users/vmadmin/Desktop";
+	
 	private JButton changeBackground = new JButton("Hintergrund ändern");
 	private JButton chooseFile= new JButton("Bild auswählen");
 	private JButton useUrl = new JButton("URL benutzen");
@@ -97,7 +99,7 @@ public class MainWindow extends JFrame{
 		});
 		
 		useUrl.addActionListener(e -> UserInteraction.setImageFromReddit(urlEntry.getText(), 
-				"C:/Users/vmadmin/Desktop"));
+				SAVE_LOCATION));
 		
 		panel.setLayout(new GridLayout(2,2));
 		panel.setSize(this.getWidth(), this.getHeight());

@@ -12,37 +12,30 @@ import javax.imageio.ImageIO;
 
 public class UserInteraction{
 	
+	static RequestBehaviour requestData;
+	
 	public static void setImageFromReddit(String subreddit, String savePath){
-		RedditAPI redditAPI = new RedditAPI();
+		requestData = new RedditBehaviour();
+		Image image = requestData.requestData(subreddit);
 		
-		//format the String
-		String RedditUrl = "http://www.reddit.com/r/" + subreddit;
-		RedditUrl += "/search.json?limit=1&restrict_sr=true&sort=new";
-		try {
+		if(image != null){
+			try{
+				saveToDisk(image, savePath);
+				Changer.changeBackground(new File(savePath));
+			}catch(IOException e){	
+			}catch(NullPointerException e){
+				e.printStackTrace();
+			}
 			
-			//get the URL of the image
-			URL url = new URL(redditAPI.requestData(RedditUrl));
-			
-			//construct the image
-			BufferedImage image = ImageIO.read(url);
-			String path =  savePath + "/pic." + getSuffix(url.getPath());
-			System.out.println(path);
-			
-			//save the image at the specified path
-			saveToDisk(image, path);
-			
-			//update the wallpaper
-			Changer.changeBackground(new File(path));
-			
-		} catch (IOException e) {
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		
 	}
 
+	static String makeRedditUrl(String subreddit){
+		return "http://www.reddit.com/r/".concat(subreddit).concat("/search.json?limit=1&restrict_sr=true&sort=new");
+	}
 	
-	private static void saveToDisk(Image img, String path){
+	static void saveToDisk(Image img, String path) throws IOException{
 		BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_RGB);
 
 		Graphics2D bGr = bimage.createGraphics();
@@ -53,12 +46,11 @@ public class UserInteraction{
 			//save the image into outputfile
 			ImageIO.write(bimage, getSuffix(path), outputfile);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IOException();
 		}
 	}
 
-	private static String getSuffix(String url){
+	static String getSuffix(String url){
 		return url.substring(url.lastIndexOf(".") + 1, url.length());
 	}
 	

@@ -2,12 +2,13 @@ package BackgroundChanger;
 
 import java.io.IOException;
 
+import javax.json.JsonObject;
+
 import org.json.JSONObject;
 
 public class FlickrAPI extends API {
 
 	public FlickrAPI(String api_key) {
-		super(api_key);
 		setRequestBehaviour(new FlickrBehaviour());
 	}
 

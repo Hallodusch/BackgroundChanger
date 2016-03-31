@@ -1,12 +1,12 @@
 package BackgroundChanger;
 
+import java.awt.image.BufferedImage;
 import java.net.URL;
 
-import com.google.api.client.http.GenericUrl;
 
 
 public interface RequestBehaviour{
 	
-	public String requestData(GenericUrl url);
+	public BufferedImage requestData(String subreddit);
 	
 }

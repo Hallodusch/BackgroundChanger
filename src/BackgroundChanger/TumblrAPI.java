@@ -1,13 +1,12 @@
 package BackgroundChanger;
 
 import java.io.IOException;
-
 import org.json.JSONObject;
+
 
 public class TumblrAPI extends API {
 
 	public TumblrAPI(String api_key) {
-		super(api_key);
 		setRequestBehaviour(new TumblrBehaviour());
 	}
 

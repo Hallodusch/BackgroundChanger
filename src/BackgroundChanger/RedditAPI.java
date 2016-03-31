@@ -12,7 +12,6 @@ import org.apache.commons.logging.Log;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import com.google.api.client.extensions.appengine.http.UrlFetchTransport;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpContent;
 import com.google.api.client.http.HttpRequest;
@@ -22,10 +21,12 @@ import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.UrlEncodedContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.appengine.api.utils.SystemProperty;
+import com.google.api.client.json.JsonToken;
 import com.sun.jna.platform.win32.WinUser.HARDWAREINPUT;
 
 import java.util.UUID;
+
+import javax.json.JsonObject;
 
 
 public class RedditAPI extends API {	
@@ -35,7 +36,6 @@ public class RedditAPI extends API {
 	private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 	
 	public RedditAPI() {
-		super("SduQIWWRJirbUQ");
 		setRequestBehaviour(new RedditBehaviour());
 	}
 	

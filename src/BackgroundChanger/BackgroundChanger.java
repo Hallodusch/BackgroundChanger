@@ -12,15 +12,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
 import javax.imageio.ImageIO;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
-import org.json.JSONObject;
-
-import com.google.appengine.api.urlfetch.URLFetchServicePb.URLFetchRequest;
-
 
 public class BackgroundChanger extends Thread{
 	private static MainWindow window;
@@ -29,6 +23,7 @@ public class BackgroundChanger extends Thread{
 
 	public static void main(String[] args) {
 
+		//Set Window look and feel (=style)
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e) {
@@ -53,6 +48,7 @@ public class BackgroundChanger extends Thread{
 		BufferedImage bufferedImage;
 		String directory = f.getParent();
 		String name = f.getName();
+		
 		//if the image is jpg already
 		if(name.substring(name.indexOf("."), name.length()).equals(".jpg")){
 			return f;
