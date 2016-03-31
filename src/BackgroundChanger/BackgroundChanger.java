@@ -41,16 +41,23 @@ public class BackgroundChanger extends Thread{
 		}
 
 		window = new MainWindow(new Dimension(600,400));
-		
+
 	}
 
 	public static final File convertToJPG(File f){
 		BufferedImage bufferedImage;
 		String directory = f.getParent();
 		String name = f.getName();
-		
+		boolean isJpg = false;
+		System.out.println(name);
+//		try{
+//			isJpg = ".jpg".equals(name.substring(name.indexOf("."), name.length()));
+//		}catch(StringIndexOutOfBoundsException e){
+//			isJpg = false;
+//			System.out.println("nicht jpg");
+//		}
 		//if the image is jpg already
-		if(name.substring(name.indexOf("."), name.length()).equals(".jpg")){
+		if(isJpg){
 			return f;
 		}else{
 			//save the file name
@@ -74,6 +81,7 @@ public class BackgroundChanger extends Thread{
 				e.printStackTrace();
 			}
 		}
+
 		return null;
 
 	}

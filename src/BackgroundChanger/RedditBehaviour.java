@@ -12,23 +12,32 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-
-
 public class RedditBehaviour implements RequestBehaviour {
 
 	@Override
-	public BufferedImage requestData(String url) {
-		RedditAPI redditAPI = new RedditAPI();
+	public BufferedImage requestData(URL imageUrl) {
 		BufferedImage image = null;
+		
 		try {
-			//get the URL of the image
-			URL imageUrl = new URL(redditAPI.requestData(url));
-
 			//construct the image
 			image = ImageIO.read(imageUrl);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		System.out.println(image.getType());
 		return image;
+	}
+
+	@Override
+	public URL giveLinkToImage(String url) {
+		RedditAPI redditAPI = new RedditAPI();
+		URL imageUrl = null;
+		try {
+			imageUrl = new URL(redditAPI.requestData(url));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return imageUrl;
 	}
 }

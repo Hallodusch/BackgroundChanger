@@ -7,6 +7,7 @@ import java.net.URL;
 
 public interface RequestBehaviour{
 	
-	public BufferedImage requestData(String subreddit);
+	public BufferedImage requestData(URL url);
 	
+	public URL giveLinkToImage(String link);
 }

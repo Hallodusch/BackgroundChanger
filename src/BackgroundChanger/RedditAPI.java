@@ -1,15 +1,17 @@
 package BackgroundChanger;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.commons.logging.Log;
+
 import org.json.JSONObject;
 import org.json.JSONTokener;
+
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpContent;
 import com.google.api.client.http.HttpRequest;
@@ -19,8 +21,7 @@ import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.UrlEncodedContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.JsonToken;
-import com.sun.jna.platform.win32.WinUser.HARDWAREINPUT;
+
 import java.util.UUID;
 
 
@@ -44,9 +45,14 @@ public class RedditAPI extends API {
 		con.setRequestProperty("User-Agent", "HTTP/1.1");
 
 		System.out.println("\nSending 'GET' request to URL : " + url);
-
+		BufferedReader in = null;
 		//Get the JSON Data
-		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		try{
+			in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		}catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
+		
 		StringBuffer response = new StringBuffer();
 		
 		//save everything into the String

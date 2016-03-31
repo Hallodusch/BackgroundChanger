@@ -16,12 +16,13 @@ public class UserInteraction{
 	
 	public static void setImageFromReddit(String subreddit, String savePath){
 		requestData = new RedditBehaviour();
-		Image image = requestData.requestData(subreddit);
-		
-		if(image != null){
+		URL linkToImage = requestData.giveLinkToImage(makeRedditUrl(subreddit));
+		BufferedImage image = requestData.requestData(linkToImage);
+		String localPath = savePath.concat("/pic.").concat(getSuffix(linkToImage.toString()));
+		if(image instanceof BufferedImage){
 			try{
-				saveToDisk(image, savePath);
-				Changer.changeBackground(new File(savePath));
+				saveToDisk(image, linkToImage, localPath);
+				Changer.changeBackground(new File(localPath));
 			}catch(IOException e){	
 			}catch(NullPointerException e){
 				e.printStackTrace();
@@ -35,16 +36,18 @@ public class UserInteraction{
 		return "http://www.reddit.com/r/".concat(subreddit).concat("/search.json?limit=1&restrict_sr=true&sort=new");
 	}
 	
-	static void saveToDisk(Image img, String path) throws IOException{
+	
+	static void saveToDisk(BufferedImage img, URL path, String localPath) throws IOException{
 		BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_RGB);
 
 		Graphics2D bGr = bimage.createGraphics();
 		bGr.drawImage(img, 0, 0, null);
 		bGr.dispose();
-		File outputfile = new File(path);
+		File outputfile = new File(localPath);
 		try {
 			//save the image into outputfile
-			ImageIO.write(bimage, getSuffix(path), outputfile);
+			System.out.println(localPath);
+			ImageIO.write(bimage, getSuffix(path.toString()), outputfile);
 		} catch (IOException e) {
 			throw new IOException();
 		}
