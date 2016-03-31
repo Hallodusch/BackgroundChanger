@@ -12,15 +12,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
 import javax.imageio.ImageIO;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class BackgroundChanger extends Thread{
+	
+	public static final String SAVE_LOCATION = "C:/Users/vmadmin/Desktop";
+
 	private static MainWindow window;
-	private static UserInteraction interaction;
-
-
+	
 	public static void main(String[] args) {
 
 		//Set Window look and feel (=style)
@@ -50,12 +52,12 @@ public class BackgroundChanger extends Thread{
 		String name = f.getName();
 		boolean isJpg = false;
 		System.out.println(name);
-//		try{
-//			isJpg = ".jpg".equals(name.substring(name.indexOf("."), name.length()));
-//		}catch(StringIndexOutOfBoundsException e){
-//			isJpg = false;
-//			System.out.println("nicht jpg");
-//		}
+		try{
+			isJpg = ".jpg".equals(name.substring(name.indexOf("."), name.length()));
+		}catch(StringIndexOutOfBoundsException e){
+			isJpg = false;
+			System.out.println("nicht jpg");
+		}
 		//if the image is jpg already
 		if(isJpg){
 			return f;

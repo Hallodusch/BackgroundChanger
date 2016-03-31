@@ -17,7 +17,7 @@ public class TumblrAPI extends API {
 	}
 
 	@Override
-	public String requestData(String url) {
+	public String requestLink(String url) {
 		// TODO Auto-generated method stub
 		return null;
 	}
