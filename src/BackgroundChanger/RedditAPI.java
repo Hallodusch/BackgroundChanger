@@ -1,5 +1,10 @@
 package BackgroundChanger;
 
+import com.google.api.client.http.*;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,20 +13,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
-import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpContent;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpRequestInitializer;
-import com.google.api.client.http.HttpResponse;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.UrlEncodedContent;
-import com.google.api.client.http.javanet.NetHttpTransport;
-
 import java.util.UUID;
 
 

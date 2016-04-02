@@ -1,37 +1,22 @@
 package BackgroundChanger;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
-
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.JToggleButton;
 
 public class MainWindow extends JFrame{
 
 	
 	
 	
-	private JButton changeBackground = new JButton("Hintergrund ändern");
-	private JButton chooseFile= new JButton("Bild auswählen");
+	private JButton changeBackground = new JButton("Hintergrund ï¿½ndern");
+	private JButton chooseFile= new JButton("Bild auswï¿½hlen");
 	private JButton useUrl = new JButton("URL benutzen");
 	private JCheckBox activated = new JCheckBox("aktiviert");
-	private JFileChooser fileDialog = new JFileChooser("Bild auswählen");
+	private JFileChooser fileDialog = new JFileChooser("Bild auswï¿½hlen");
 	private JLabel fileChooseLabel = new JLabel();
 	private JTextField fileText;
 	private JTextField urlEntry;
@@ -57,7 +42,7 @@ public class MainWindow extends JFrame{
 		fileText = createTextField(new Dimension(150, 20), false, false);
 		urlEntry = createTextField(new Dimension(150, 20), true, true);
 		
-		fileChooseLabel.setText("Wählen Sie ein Bild aus");
+		fileChooseLabel.setText("Wï¿½hlen Sie ein Bild aus");
 		fileChooseLabel.setFont(new Font(fileText.getFont().getName(), 1, fileText.getFont().getSize() + 4));
 		
 		fileText.addMouseListener(new MouseListener(){
@@ -91,14 +76,14 @@ public class MainWindow extends JFrame{
 
 					if(Changer.changeBackground(selectedFile)){
 
-						JOptionPane.showMessageDialog(panel, "Bild wurde erfolgreich geändert.\n"
+						JOptionPane.showMessageDialog(panel, "Bild wurde erfolgreich geï¿½ndert.\n"
 								+ "Das neue Bild ist: " + selectedFile.getAbsolutePath());
 
-					}else JOptionPane.showMessageDialog(panel, "Hintergrund nicht geändert. Bitte geben Sie ein Bild an.");
+					}else JOptionPane.showMessageDialog(panel, "Hintergrund nicht geï¿½ndert. Bitte geben Sie ein Bild an.");
 
 				}catch(Exception ex) { System.out.println(ex.toString()); }
 
-			}else JOptionPane.showMessageDialog(panel, "Sie haben noch kein Bild ausgewählt.");
+			}else JOptionPane.showMessageDialog(panel, "Sie haben noch kein Bild ausgewï¿½hlt.");
 
 		});
 		

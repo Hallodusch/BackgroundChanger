@@ -1,21 +1,11 @@
 package BackgroundChanger;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Toolkit;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import javax.imageio.ImageIO;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 public class BackgroundChanger extends Thread{
 	
@@ -46,11 +36,11 @@ public class BackgroundChanger extends Thread{
 
 	}
 
-	public static final File convertToJPG(File f){
+	static File convertToJPG(File f){
 		BufferedImage bufferedImage;
 		String directory = f.getParent();
 		String name = f.getName();
-		boolean isJpg = false;
+		boolean isJpg;
 		System.out.println(name);
 		try{
 			isJpg = ".jpg".equals(name.substring(name.indexOf("."), name.length()));

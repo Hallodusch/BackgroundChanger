@@ -1,16 +1,8 @@
 package BackgroundChanger;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-
-import org.apache.http.auth.MalformedChallengeException;
-import org.apache.*;
-
-import java.net.URL;
-
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.net.URL;
 
 public class RedditBehaviour implements RequestBehaviour {
 

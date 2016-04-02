@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component jdk="1.8" jdk_type="JavaSDK">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<lib name="appengine-api-1.0-sdk-1.9.32.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/appengine-api-1.0-sdk-1.9.32.jar!/"/>
+	</lib>
+	<lib name="bsh.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/bsh.jar!/"/>
+	</lib>
+	<lib name="clover.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/clover.jar!/"/>
+	</lib>
+	<lib name="commons-codec-1.9.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/commons-codec-1.9.jar!/"/>
+	</lib>
+	<lib name="commons-io-2.4-javadoc.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/commons-io-2.4-javadoc.jar!/"/>
+	</lib>
+	<lib name="commons-io-2.4-sources.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/commons-io-2.4-sources.jar!/"/>
+	</lib>
+	<lib name="commons-io-2.4-test-sources.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/commons-io-2.4-test-sources.jar!/"/>
+	</lib>
+	<lib name="commons-io-2.4-tests.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/commons-io-2.4-tests.jar!/"/>
+	</lib>
+	<lib name="commons-io-2.4.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/commons-io-2.4.jar!/"/>
+	</lib>
+	<lib name="commons-lang3-3.4.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/commons-lang3-3.4.jar!/"/>
+	</lib>
+	<lib name="commons-logging-1.1.1.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/commons-logging-1.1.1.jar!/"/>
+	</lib>
+	<lib name="commons-logging-1.2.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/commons-logging-1.2.jar!/"/>
+	</lib>
+	<lib name="fluent-hc-4.5.2.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/fluent-hc-4.5.2.jar!/"/>
+	</lib>
+	<lib name="google-api-client-1.21.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/google-api-client-1.21.0.jar!/"/>
+	</lib>
+	<lib name="google-api-client-android-1.21.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/google-api-client-android-1.21.0.jar!/"/>
+	</lib>
+	<lib name="google-api-client-appengine-1.21.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/google-api-client-appengine-1.21.0.jar!/"/>
+	</lib>
+	<lib name="google-api-client-gson-1.21.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/google-api-client-gson-1.21.0.jar!/"/>
+	</lib>
+	<lib name="google-api-client-jackson2-1.21.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/google-api-client-jackson2-1.21.0.jar!/"/>
+	</lib>
+	<lib name="google-api-client-java6-1.21.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/google-api-client-java6-1.21.0.jar!/"/>
+	</lib>
+	<lib name="google-api-client-protobuf-1.21.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/google-api-client-protobuf-1.21.0.jar!/"/>
+	</lib>
+	<lib name="google-api-client-servlet-1.21.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/google-api-client-servlet-1.21.0.jar!/"/>
+	</lib>
+	<lib name="google-api-client-xml-1.21.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/google-api-client-xml-1.21.0.jar!/"/>
+	</lib>
+	<lib name="google-http-client-1.21.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/google-http-client-1.21.0.jar!/"/>
+	</lib>
+	<lib name="google-http-client-android-1.21.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/google-http-client-android-1.21.0.jar!/"/>
+	</lib>
+	<lib name="google-http-client-appengine-1.21.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/google-http-client-appengine-1.21.0.jar!/"/>
+	</lib>
+	<lib name="google-http-client-gson-1.21.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/google-http-client-gson-1.21.0.jar!/"/>
+	</lib>
+	<lib name="google-http-client-jackson-1.21.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/google-http-client-jackson-1.21.0.jar!/"/>
+	</lib>
+	<lib name="google-http-client-jackson2-1.21.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/google-http-client-jackson2-1.21.0.jar!/"/>
+	</lib>
+	<lib name="google-http-client-jdo-1.21.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/google-http-client-jdo-1.21.0.jar!/"/>
+	</lib>
+	<lib name="google-http-client-protobuf-1.21.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/google-http-client-protobuf-1.21.0.jar!/"/>
+	</lib>
+	<lib name="google-http-client-xml-1.21.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/google-http-client-xml-1.21.0.jar!/"/>
+	</lib>
+	<lib name="google-oauth-client-1.21.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/google-oauth-client-1.21.0.jar!/"/>
+	</lib>
+	<lib name="google-oauth-client-appengine-1.21.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/google-oauth-client-appengine-1.21.0.jar!/"/>
+	</lib>
+	<lib name="google-oauth-client-java6-1.21.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/google-oauth-client-java6-1.21.0.jar!/"/>
+	</lib>
+	<lib name="google-oauth-client-jetty-1.21.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/google-oauth-client-jetty-1.21.0.jar!/"/>
+	</lib>
+	<lib name="google-oauth-client-servlet-1.21.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/google-oauth-client-servlet-1.21.0.jar!/"/>
+	</lib>
+	<lib name="gson-2.1.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/gson-2.1.jar!/"/>
+	</lib>
+	<lib name="guava-jdk5-17.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/guava-jdk5-17.0.jar!/"/>
+	</lib>
+	<lib name="hamcrest-core-1.3.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/hamcrest-core-1.3.jar!/"/>
+	</lib>
+	<lib name="httpclient-4.0.1.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/httpclient-4.0.1.jar!/"/>
+	</lib>
+	<lib name="httpclient-4.5.2.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/httpclient-4.5.2.jar!/"/>
+	</lib>
+	<lib name="httpclient-cache-4.5.2.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/httpclient-cache-4.5.2.jar!/"/>
+	</lib>
+	<lib name="httpclient-win-4.5.2.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/httpclient-win-4.5.2.jar!/"/>
+	</lib>
+	<lib name="httpcore-4.0.1.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/httpcore-4.0.1.jar!/"/>
+	</lib>
+	<lib name="httpcore-4.4.4.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/httpcore-4.4.4.jar!/"/>
+	</lib>
+	<lib name="httpmime-4.5.2.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/httpmime-4.5.2.jar!/"/>
+	</lib>
+	<lib name="jackson-core-2.1.3.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/jackson-core-2.1.3.jar!/"/>
+	</lib>
+	<lib name="jackson-core-asl-1.9.11.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/jackson-core-asl-1.9.11.jar!/"/>
+	</lib>
+	<lib name="jdo2-api-2.3-eb.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/jdo2-api-2.3-eb.jar!/"/>
+	</lib>
+	<lib name="jetty-6.1.26.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/jetty-6.1.26.jar!/"/>
+	</lib>
+	<lib name="jetty-util-6.1.26.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/jetty-util-6.1.26.jar!/"/>
+	</lib>
+	<lib name="jna-4.1.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/jna-4.1.0.jar!/"/>
+	</lib>
+	<lib name="jna-platform-4.1.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/jna-platform-4.1.0.jar!/"/>
+	</lib>
+	<lib name="json-20160212.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/json-20160212.jar!/"/>
+	</lib>
+	<lib name="jsr305-1.3.9.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/jsr305-1.3.9.jar!/"/>
+	</lib>
+	<lib name="junit.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/junit.jar!/"/>
+	</lib>
+	<lib name="maven-ant-tasks-2.1.3.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/maven-ant-tasks-2.1.3.jar!/"/>
+	</lib>
+	<lib name="protobuf-java-2.4.1.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/protobuf-java-2.4.1.jar!/"/>
+	</lib>
+	<lib name="transaction-api-1.1.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/transaction-api-1.1.jar!/"/>
+	</lib>
+	<lib name="xpp3-1.1.4c.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/xpp3-1.1.4c.jar!/"/>
+	</lib>
+</component>

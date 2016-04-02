@@ -3,8 +3,6 @@ package BackgroundChanger;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 
-import com.google.api.client.http.GenericUrl;
-
 public class FlickrBehaviour implements RequestBehaviour {
 
 	@Override
