@@ -5,6 +5,8 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -23,12 +25,8 @@ public class RedditAPI extends API {
 	private final static String MY_APP_ID = "SduQIWWRJirbUQ";
 	private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 	
-	public RedditAPI() {
-		setRequestBehaviour(new RedditBehaviour());
-	}
-	
 	public String requestLink(String url) throws Exception{
-		//Open the conncetion
+		//Open the connection
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
@@ -63,47 +61,32 @@ public class RedditAPI extends API {
 		
 		return link;
 	}
-	
-	
-	public JSONObject getToken() throws IOException {
-		String uuid = UUID.randomUUID().toString();
-		System.out.println("Getting token ...");
-        GenericUrl url = new GenericUrl(OAUTH_TOKEN_URL);
-        Map<String, String> params = new HashMap<String, String>(2);
-        params.put("grant_type", "https://oauth.reddit.com/grants/installed_client");
-        params.put("device_id", uuid);
 
-        HttpContent hc = new UrlEncodedContent(params);
 
-        HttpRequestFactory requestFactory = HTTP_TRANSPORT
-                .createRequestFactory(new HttpRequestInitializer() {
-                    @Override
-                    public void initialize(HttpRequest request) {
-                        request.getHeaders().setBasicAuthentication(MY_APP_ID, "");
-                    }
-                });
+	public BufferedImage requestData(URL imageUrl) {
+		BufferedImage image = null;
 
-        HttpRequest request = requestFactory.buildPostRequest(url, hc);
-        HttpResponse response = request.execute();
+		try {
+			//construct the image
+			image = ImageIO.read(imageUrl);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		System.out.println(image.getType());
+		return image;
+	}
 
-        JSONObject jo = null;
-        try {
-            if (response.isSuccessStatusCode()) {
 
-                String json = response.parseAsString();
+	public URL giveLinkToImage(String url) {
+		RedditAPI redditAPI = new RedditAPI();
+		URL imageUrl = null;
+		try {
+			imageUrl = new URL(redditAPI.requestLink(url));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-                // Parse with org.json
-                JSONTokener tokener = null;
-                tokener = new JSONTokener( json );
-                jo = new JSONObject(tokener);
-
-            } else
-                System.out.println("Request failed with " + response.getStatusCode());
-        } finally {
-            response.disconnect();
-        }
-
-        return jo;
-    }
+		return imageUrl;
+	}
 
 }

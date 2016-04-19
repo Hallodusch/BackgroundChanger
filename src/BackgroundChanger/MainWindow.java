@@ -9,31 +9,29 @@ import java.io.File;
 
 public class MainWindow extends JFrame{
 
-	
-	
-	
-	private JButton changeBackground = new JButton("Hintergrund �ndern");
-	private JButton chooseFile= new JButton("Bild ausw�hlen");
-	private JButton useUrl = new JButton("URL benutzen");
-	private JCheckBox activated = new JCheckBox("aktiviert");
-	private JFileChooser fileDialog = new JFileChooser("Bild ausw�hlen");
-	private JLabel fileChooseLabel = new JLabel();
+    private File selectedFile;
+	private JFileChooser fileDialog = new JFileChooser("Bild auswählen");
 	private JTextField fileText;
 	private JTextField urlEntry;
-	private File selectedFile;
-	private JPanel upperRight = new JPanel(new FlowLayout());
-	private JPanel upperLeft = new JPanel(new FlowLayout());
-	private JPanel lowerRight = new JPanel(new FlowLayout());
-	private JPanel lowerLeft = new JPanel(new FlowLayout());
 	private JPanel panel = new JPanel(new GridBagLayout());
 	
 	public MainWindow(Dimension dim){
-		setTitle("Background Changer");
-		setMaximumSize(new Dimension(1600, 900));
-		setSize(dim);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setContentPane(panel);
+
+        JLabel fileChooseLabel = new JLabel();
+
+        JButton changeBackground = new JButton("Hintergrund ändern");
+        JButton chooseFile= new JButton("Bild auswählen");
+        JButton useUrl = new JButton("URL benutzen");
+
+        JCheckBox activated = new JCheckBox("aktiviert");
+
+        JPanel upperRight = new JPanel(new FlowLayout());
+        JPanel upperLeft = new JPanel(new FlowLayout());
+        JPanel lowerRight = new JPanel(new FlowLayout());
+        JPanel lowerLeft = new JPanel(new FlowLayout());
+
+        //set settings for the window
+		setWindow(dim);
 
 		selectedFile = new File("");
 
@@ -42,7 +40,7 @@ public class MainWindow extends JFrame{
 		fileText = createTextField(new Dimension(150, 20), false, false);
 		urlEntry = createTextField(new Dimension(150, 20), true, true);
 		
-		fileChooseLabel.setText("W�hlen Sie ein Bild aus");
+		fileChooseLabel.setText("Wählen Sie ein Bild aus");
 		fileChooseLabel.setFont(new Font(fileText.getFont().getName(), 1, fileText.getFont().getSize() + 4));
 		
 		fileText.addMouseListener(new MouseListener(){
@@ -76,19 +74,18 @@ public class MainWindow extends JFrame{
 
 					if(Changer.changeBackground(selectedFile)){
 
-						JOptionPane.showMessageDialog(panel, "Bild wurde erfolgreich ge�ndert.\n"
+						JOptionPane.showMessageDialog(panel, "Bild wurde erfolgreich geändert.\n"
 								+ "Das neue Bild ist: " + selectedFile.getAbsolutePath());
 
-					}else JOptionPane.showMessageDialog(panel, "Hintergrund nicht ge�ndert. Bitte geben Sie ein Bild an.");
+					}else JOptionPane.showMessageDialog(panel, "Hintergrund nicht geändert. Bitte geben Sie ein Bild an.");
 
 				}catch(Exception ex) { System.out.println(ex.toString()); }
 
-			}else JOptionPane.showMessageDialog(panel, "Sie haben noch kein Bild ausgew�hlt.");
+			}else JOptionPane.showMessageDialog(panel, "Sie haben noch kein Bild ausgewählt.");
 
 		});
 		
-		useUrl.addActionListener(e -> UserInteraction.setImageFromReddit(urlEntry.getText(), 
-				BackgroundChanger.SAVE_LOCATION));
+		useUrl.addActionListener(e -> setImage(urlEntry.getText()));
 		
 		panel.setLayout(new GridLayout(2,2));
 		panel.setSize(this.getWidth(), this.getHeight());
@@ -112,7 +109,37 @@ public class MainWindow extends JFrame{
 		setVisible(true);
 	}
 
-	
+
+    private void setImage(String url){
+        BackgroundChanger.setImageFromReddit(url);
+    }
+
+    private void setWindow(Dimension dim){
+        setTitle("Background Changer");
+        setMaximumSize(new Dimension(1600, 900));
+        setSize(dim);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setContentPane(panel);
+
+        //Set Window look and feel (=style)
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
 	
 	private JTextField createTextField(Dimension dim, boolean focusable, boolean enabled){
 		JTextField fileText = new JTextField();

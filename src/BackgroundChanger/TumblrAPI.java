@@ -2,22 +2,24 @@ package BackgroundChanger;
 
 import org.json.JSONObject;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.URL;
 
 
 public class TumblrAPI extends API {
 
-	public TumblrAPI(String api_key) {
-		setRequestBehaviour(new TumblrBehaviour());
-	}
+    @Override
+    public URL giveLinkToImage(String url) {
+        return null;
+    }
 
-	@Override
-	public JSONObject getToken() throws IOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public BufferedImage requestData(URL imageUrl) {
+        return null;
+    }
 
-	@Override
+    @Override
 	public String requestLink(String url) {
 		// TODO Auto-generated method stub
 		return null;
