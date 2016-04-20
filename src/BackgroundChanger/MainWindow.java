@@ -7,43 +7,42 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 
-public class MainWindow extends JFrame{
+class MainWindow extends JFrame {
 
-    private File selectedFile;
-	private JFileChooser fileDialog = new JFileChooser("Bild auswählen");
-	private JTextField fileText;
-	private JTextField urlEntry;
-	private JPanel panel = new JPanel(new GridBagLayout());
-	
-	public MainWindow(Dimension dim){
+	private final JPanel outerPanel = new JPanel(new GridBagLayout());
+	private File selectedFile = new File("");
+	private final JFileChooser fileDialog = new JFileChooser("Bild auswählen");
+	private final JTextField localFileText;
+	private final JTextField subredditEntry;
 
-        JLabel fileChooseLabel = new JLabel();
+	public MainWindow(Dimension dim) {
 
-        JButton changeBackground = new JButton("Hintergrund ändern");
-        JButton chooseFile= new JButton("Bild auswählen");
-        JButton useUrl = new JButton("URL benutzen");
+		GridBagConstraints c = new GridBagConstraints();
 
-        JCheckBox activated = new JCheckBox("aktiviert");
+		JLabel titleLabel = new JLabel("Hintergrundbild ändern");
+		JButton useLocalImage = new JButton("Hintergrund ändern");
+		JButton chooseFile = new JButton("Bild auswählen");
+		JButton subredditButton = new JButton("Bild aus Subreddit nehmen");
+		JButton settingsButton = new JButton("Einstellungen");
 
-        JPanel upperRight = new JPanel(new FlowLayout());
-        JPanel upperLeft = new JPanel(new FlowLayout());
-        JPanel lowerRight = new JPanel(new FlowLayout());
-        JPanel lowerLeft = new JPanel(new FlowLayout());
 
-        //set settings for the window
+		JPanel innerPanel = new JPanel(new GridLayout(1, 2));
+		JPanel leftPanel = new JPanel(new GridLayout(3, 1));
+		JPanel localImagePanel = new JPanel(new GridLayout(1, 2));
+		JPanel subredditPanel = new JPanel(new GridLayout(1, 2));
+		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+
+		//set settings for the window
 		setWindow(dim);
-
-		selectedFile = new File("");
 
 		fileDialog.setCurrentDirectory(new File(System.getProperty("user.home")));
 
-		fileText = createTextField(new Dimension(150, 20), false, false);
-		urlEntry = createTextField(new Dimension(150, 20), true, true);
-		
-		fileChooseLabel.setText("Wählen Sie ein Bild aus");
-		fileChooseLabel.setFont(new Font(fileText.getFont().getName(), 1, fileText.getFont().getSize() + 4));
-		
-		fileText.addMouseListener(new MouseListener(){
+		localFileText = createTextField(new Dimension(150, 20), false, false);
+		subredditEntry = createTextField(new Dimension(150, 20), true, true);
+
+		titleLabel.setFont(new Font(titleLabel.getFont().getName(), 1, 20));
+
+		localFileText.addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -51,119 +50,141 @@ public class MainWindow extends JFrame{
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent arg0) {}
+			public void mouseEntered(MouseEvent arg0) {
+			}
 
 			@Override
-			public void mouseExited(MouseEvent arg0) {}
+			public void mouseExited(MouseEvent arg0) {
+			}
 
 			@Override
-			public void mousePressed(MouseEvent arg0) {}
+			public void mousePressed(MouseEvent arg0) {
+			}
 
 			@Override
-			public void mouseReleased(MouseEvent arg0) {}
+			public void mouseReleased(MouseEvent arg0) {
+			}
 
 		});
 
-		chooseFile.addActionListener( e -> chooseFile(e));
+		chooseFile.addActionListener(this::chooseFile);
 
-		changeBackground.addActionListener(ae -> {
+		settingsButton.addActionListener(e -> new SettingsWindow());
 
-			if(!"".equals(selectedFile.getName())){
+		useLocalImage.addActionListener(ae -> {
 
-				try{
+			if (!"".equals(selectedFile.getName())) {
 
-					if(Changer.changeBackground(selectedFile)){
+				try {
 
-						JOptionPane.showMessageDialog(panel, "Bild wurde erfolgreich geändert.\n"
+					if (Changer.useLocalImage(selectedFile)) {
+
+						JOptionPane.showMessageDialog(getContentPane(), "Bild wurde erfolgreich geändert.\n"
 								+ "Das neue Bild ist: " + selectedFile.getAbsolutePath());
 
-					}else JOptionPane.showMessageDialog(panel, "Hintergrund nicht geändert. Bitte geben Sie ein Bild an.");
+					} else
+						JOptionPane.showMessageDialog(getContentPane(), "Hintergrund nicht geändert. Bitte geben Sie ein Bild an.");
 
-				}catch(Exception ex) { System.out.println(ex.toString()); }
+				} catch (Exception ex) { System.out.println(ex.toString()); }
 
-			}else JOptionPane.showMessageDialog(panel, "Sie haben noch kein Bild ausgewählt.");
+			} else JOptionPane.showMessageDialog(getContentPane(), "Sie haben noch kein Bild ausgewählt.");
 
 		});
-		
-		useUrl.addActionListener(e -> setImage(urlEntry.getText()));
-		
-		panel.setLayout(new GridLayout(2,2));
-		panel.setSize(this.getWidth(), this.getHeight());
-		
-		panel.add(upperLeft);
-		panel.add(upperRight);
-		panel.add(lowerLeft);
-		panel.add(lowerRight);
-		
-		
-		upperLeft.add(fileChooseLabel);
-		lowerLeft.add(fileText);
-		lowerLeft.add(chooseFile);
-		
-		lowerRight.add(changeBackground);
-		lowerLeft.add(activated);
-		upperRight.add(urlEntry);
-		upperRight.add(useUrl);
-		
+
+		subredditButton.addActionListener(e -> setImage(subredditEntry.getText()));
+
+		titleLabel.setHorizontalAlignment(JLabel.CENTER);
+
+
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 0;
+		c.ipadx = 10;
+		c.ipady = 10;
+		c.gridwidth = 1;
+		outerPanel.add(titleLabel, c);
+		c.gridy = 1;
+		outerPanel.add(innerPanel, c);
+
+
+		outerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		localImagePanel.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5));
+		subredditPanel.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5));
+		buttonPanel.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5));
+
+		innerPanel.add(leftPanel);
+
+		leftPanel.add(localImagePanel);
+		leftPanel.add(subredditPanel);
+		leftPanel.add(buttonPanel);
+
+		localImagePanel.add(localFileText);
+		localImagePanel.add(useLocalImage);
+
+		subredditPanel.add(subredditEntry);
+		subredditPanel.add(subredditButton);
+
+		buttonPanel.add(settingsButton);
+
 		pack();
 		setVisible(true);
 	}
 
 
-    private void setImage(String url){
-        BackgroundChanger.setImageFromReddit(url);
-    }
-
-    private void setWindow(Dimension dim){
-        setTitle("Background Changer");
-        setMaximumSize(new Dimension(1600, 900));
-        setSize(dim);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setContentPane(panel);
-
-        //Set Window look and feel (=style)
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (UnsupportedLookAndFeelException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-    }
-	
-	private JTextField createTextField(Dimension dim, boolean focusable, boolean enabled){
-		JTextField fileText = new JTextField();
-		
-		fileText.setPreferredSize(dim);
-		fileText.setMinimumSize(new Dimension(80,20));
-		fileText.setMaximumSize(new Dimension(300,20));
-		fileText.setBackground(Color.WHITE);
-		fileText.setFocusable(focusable);
-		fileText.setEnabled(enabled);
-		fileText.setDisabledTextColor(Color.BLACK);
-		
-		return fileText;
+	private void setImage(String url) {
+		if("".equals(url)){
+			JOptionPane.showMessageDialog(getContentPane(), "Sie haben kein Subreddit angegeben.");
+		}else{
+			BackgroundChanger.setImageFromReddit(url);
+		}
 	}
-	
-	private File chooseFile(MouseEvent e){
-		int result = fileDialog.showOpenDialog( (Component) e.getSource());
+
+	private void setWindow(Dimension dim) {
+		setTitle("Background Changer");
+		setMaximumSize(new Dimension(1600, 900));
+		setSize(dim);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		setContentPane(outerPanel);
+
+		//Set Window look and feel (=style)
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private JTextField createTextField(Dimension dim, boolean focusable, boolean enabled) {
+		JTextField localFileText = new JTextField();
+
+		localFileText.setPreferredSize(dim);
+		localFileText.setMinimumSize(new Dimension(80, 20));
+		localFileText.setMaximumSize(new Dimension(300, 20));
+		localFileText.setBackground(Color.WHITE);
+		localFileText.setFocusable(focusable);
+		localFileText.setEnabled(enabled);
+		localFileText.setDisabledTextColor(Color.BLACK);
+
+		return localFileText;
+	}
+
+	private File chooseFile(MouseEvent e) {
+		int result = fileDialog.showOpenDialog((Component) e.getSource());
 		if (result == JFileChooser.APPROVE_OPTION) {
 
 			selectedFile = fileDialog.getSelectedFile();
 			//			System.out.println(selectedFile.getName());
 			fileDialog.setCurrentDirectory(selectedFile);
-			fileText.setText(selectedFile.getAbsolutePath());
-			fileText.setPreferredSize(new Dimension((int) (fileText.getText().length() * 5.6),20));
+			localFileText.setText(selectedFile.getAbsolutePath());
+			localFileText.setPreferredSize(new Dimension((int) (localFileText.getText().length() * 5.6), 20));
 			pack();
 			setLocationRelativeTo(null);
 			return selectedFile;
@@ -171,15 +192,15 @@ public class MainWindow extends JFrame{
 		return null;
 	}
 
-	private File chooseFile(ActionEvent e){
-		int result = fileDialog.showOpenDialog( (Component) e.getSource());
+	private File chooseFile(ActionEvent e) {
+		int result = fileDialog.showOpenDialog((Component) e.getSource());
 		if (result == JFileChooser.APPROVE_OPTION) {
 
 			selectedFile = fileDialog.getSelectedFile();
 			//			System.out.println(selectedFile.getName());
 			fileDialog.setCurrentDirectory(selectedFile);
-			fileText.setText(selectedFile.getAbsolutePath());
-			fileText.setPreferredSize(new Dimension((int) (fileText.getText().length() * 5.6),20));
+			localFileText.setText(selectedFile.getAbsolutePath());
+			localFileText.setPreferredSize(new Dimension((int) (localFileText.getText().length() * 5.6), 20));
 			pack();
 			setLocationRelativeTo(null);
 			return selectedFile;

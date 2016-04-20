@@ -9,7 +9,7 @@ import com.sun.jna.win32.W32APITypeMapper;
 import java.io.File;
 import java.util.HashMap;
 
-public class Changer{
+public class Changer {
 
 	public interface SPI extends StdCallLibrary {
 
@@ -30,33 +30,33 @@ public class Changer{
 				UINT_PTR uiParam,
 				String pvParam,
 				UINT_PTR fWinIni
-				);
+		);
 
 
 	}
 
-	public static boolean changeBackground(String path)throws NullPointerException{	
+	public static boolean useLocalImage(String path) throws NullPointerException {
 
-		if(new File(path).canRead()){
+		if (new File(path).canRead()) {
 			return (SPI.INSTANCE.SystemParametersInfo(
-					new UINT_PTR(SPI.SPI_SETDESKWALLPAPER), 
-					new UINT_PTR(0), 
-					BackgroundChanger.convertToJPG(new File(path)).getAbsolutePath(), 
+					new UINT_PTR(SPI.SPI_SETDESKWALLPAPER),
+					new UINT_PTR(0),
+					BackgroundChanger.convertToJPG(new File(path)).getAbsolutePath(),
 					new UINT_PTR(SPI.SPIF_UPDATEINIFILE | SPI.SPIF_SENDWININICHANGE)));
-		}else{
+		} else {
 			throw new NullPointerException("Hier ist die Exception");
 		}
 	}
 
-	public static boolean changeBackground(File file)throws NullPointerException{	
-		System.out.println("Setze Hintergrund: "+ file.getAbsolutePath());
-		if(file.canRead()){
+	public static boolean useLocalImage(File file) throws NullPointerException {
+		System.out.println("Setze Hintergrund: " + file.getAbsolutePath());
+		if (file.canRead()) {
 			return (SPI.INSTANCE.SystemParametersInfo(
-					new UINT_PTR(SPI.SPI_SETDESKWALLPAPER), 
-					new UINT_PTR(0), 
-					BackgroundChanger.convertToJPG(file).getAbsolutePath(), 
+					new UINT_PTR(SPI.SPI_SETDESKWALLPAPER),
+					new UINT_PTR(0),
+					BackgroundChanger.convertToJPG(file).getAbsolutePath(),
 					new UINT_PTR(SPI.SPIF_UPDATEINIFILE | SPI.SPIF_SENDWININICHANGE)));
-		}else{
+		} else {
 			throw new NullPointerException("Hier ist die Exception");
 		}
 
