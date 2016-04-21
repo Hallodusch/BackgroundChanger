@@ -40,7 +40,7 @@ class MainWindow extends JFrame {
 		localFileText = createTextField(new Dimension(150, 20), false, false);
 		subredditEntry = createTextField(new Dimension(150, 20), true, true);
 
-		titleLabel.setFont(new Font(titleLabel.getFont().getName(), 1, 20));
+		titleLabel.setFont(new Font(titleLabel.getFont().getName(), Font.BOLD, 20));
 
 		localFileText.addMouseListener(new MouseListener() {
 
@@ -129,7 +129,6 @@ class MainWindow extends JFrame {
 		pack();
 		setVisible(true);
 	}
-
 
 	private void setImage(String url) {
 		if("".equals(url)){
