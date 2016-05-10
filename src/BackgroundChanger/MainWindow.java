@@ -14,6 +14,7 @@ class MainWindow extends JFrame {
 	private final JFileChooser fileDialog = new JFileChooser("Bild auswählen");
 	private final JTextField localFileText;
 	private final JTextField subredditEntry;
+	private final JTextField tumblrEntry;
 
 	public MainWindow(Dimension dim) {
 
@@ -23,6 +24,7 @@ class MainWindow extends JFrame {
 		JButton useLocalImage = new JButton("Hintergrund ändern");
 		JButton chooseFile = new JButton("Bild auswählen");
 		JButton subredditButton = new JButton("Bild aus Subreddit nehmen");
+		JButton tumblrButton = new JButton("Bild aus Tumblr Blog nehmen");
 		JButton settingsButton = new JButton("Einstellungen");
 
 
@@ -30,6 +32,7 @@ class MainWindow extends JFrame {
 		JPanel leftPanel = new JPanel(new GridLayout(3, 1));
 		JPanel localImagePanel = new JPanel(new GridLayout(1, 2));
 		JPanel subredditPanel = new JPanel(new GridLayout(1, 2));
+		JPanel tumblrPanel = new JPanel(new GridLayout(1, 2));
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
 
 		//set settings for the window
@@ -39,6 +42,7 @@ class MainWindow extends JFrame {
 
 		localFileText = createTextField(new Dimension(150, 20), false, false);
 		subredditEntry = createTextField(new Dimension(150, 20), true, true);
+		tumblrEntry = createTextField(new Dimension(150, 20), true, true);
 
 		titleLabel.setFont(new Font(titleLabel.getFont().getName(), Font.BOLD, 20));
 
@@ -91,7 +95,9 @@ class MainWindow extends JFrame {
 
 		});
 
-		subredditButton.addActionListener(e -> setImage(subredditEntry.getText()));
+		subredditButton.addActionListener(e -> setRedditImage(subredditEntry.getText()));
+
+		tumblrButton.addActionListener(e -> setTumblrImage(tumblrEntry.getText()));
 
 		titleLabel.setHorizontalAlignment(JLabel.CENTER);
 
@@ -110,12 +116,14 @@ class MainWindow extends JFrame {
 		outerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		localImagePanel.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5));
 		subredditPanel.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5));
+		tumblrPanel.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5));
 		buttonPanel.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5));
 
 		innerPanel.add(leftPanel);
 
 		leftPanel.add(localImagePanel);
 		leftPanel.add(subredditPanel);
+		leftPanel.add(tumblrPanel);
 		leftPanel.add(buttonPanel);
 
 		localImagePanel.add(localFileText);
@@ -124,17 +132,28 @@ class MainWindow extends JFrame {
 		subredditPanel.add(subredditEntry);
 		subredditPanel.add(subredditButton);
 
+		tumblrPanel.add(tumblrEntry);
+		tumblrPanel.add(tumblrButton);
+
 		buttonPanel.add(settingsButton);
 
 		pack();
 		setVisible(true);
 	}
 
-	private void setImage(String url) {
+	private void setRedditImage(String url) {
 		if("".equals(url)){
 			JOptionPane.showMessageDialog(getContentPane(), "Sie haben kein Subreddit angegeben.");
 		}else{
 			BackgroundChanger.setImageFromReddit(url);
+		}
+	}
+
+	private void setTumblrImage(String url) {
+		if("".equals(url)){
+			JOptionPane.showMessageDialog(getContentPane(), "Sie haben kein Subreddit angegeben.");
+		}else{
+			BackgroundChanger.setImageFromTumblr(url);
 		}
 	}
 

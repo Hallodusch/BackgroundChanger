@@ -62,26 +62,25 @@ class BackgroundChanger extends Thread {
 	}
 
 	//make the local path to the image
-	private static String makeLocalPath(String linkToImage) {
+	public static String makeLocalPath(String linkToImage) {
 		return SAVE_LOCATION.concat("/wallpaper.").concat(getSuffix(linkToImage));
 	}
 
 	//return the suffix of the image (e.g. 'jpg')
-	private static String getSuffix(String url) {
+	public static String getSuffix(String url) {
 		return url.substring(url.lastIndexOf(".") + 1, url.length());
 	}
 
 	public static void setImageFromReddit(String subreddit) {
 
-
 		API api = new RedditAPI();
 
 		//Get the URL to the actual image
-		URL linkToImage = api.giveLinkToImage(api.makeUrl(subreddit));
+		String subredditLink = api.makeUrl(subreddit);
+		URL linkToImage = api.giveLinkToImage(subredditLink);
 
 		//Get the image data from the link
 		BufferedImage image = api.requestData(linkToImage);
-
 
 		if (image != null) {
 			try {
@@ -90,7 +89,37 @@ class BackgroundChanger extends Thread {
 
 				//change the background
 				Changer.useLocalImage(new File(makeLocalPath(linkToImage.toString())));
+				SettingsWriter writer = new SettingsWriter();
+				writer.writeHistory(subredditLink);
+			} catch (IOException e) {
+			} catch (NullPointerException e) {
+				e.printStackTrace();
+			}
 
+		}
+
+	}
+
+	public static void setImageFromTumblr(String blog) {
+
+		API api = new TumblrAPI();
+
+		//Get the URL to the actual image
+		String blogLink = api.makeUrl(blog);
+		URL linkToImage = api.giveLinkToImage(blogLink);
+
+		//Get the image data from the link
+		BufferedImage image = api.requestData(linkToImage);
+
+		if (image != null) {
+			try {
+				//Save the image to the local hard disk
+				saveToDisk(image, linkToImage);
+
+				//change the background
+				Changer.useLocalImage(new File(makeLocalPath(linkToImage.toString())));
+				SettingsWriter writer = new SettingsWriter();
+				writer.writeHistory(blogLink);
 			} catch (IOException e) {
 			} catch (NullPointerException e) {
 				e.printStackTrace();
