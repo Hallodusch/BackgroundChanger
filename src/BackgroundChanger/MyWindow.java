@@ -30,7 +30,7 @@ class MyWindow extends JFrame{
 		super("Background Changer");
 
 		try{
-			ImageIcon icon = new ImageIcon("appicon.png");
+			ImageIcon icon = new ImageIcon("./appicon.png");
 			setIconImage(icon.getImage());
 		}catch(NullPointerException e){
 			e.printStackTrace();
@@ -76,12 +76,9 @@ class MyWindow extends JFrame{
 	}
 
 	public void setInternetImage(String subUrl, API api){
-		System.out.println("window not in if");
 		if("".equals(subUrl)){
 			JOptionPane.showMessageDialog(getContentPane(), "Sie haben kein Subreddit angegeben.");
 		}else {
-			System.out.println("window in if");
-			changer.setImage(subUrl, api);
 			if(changer.setImage(subUrl, api)){
 				updateHistoryList();
 			}
