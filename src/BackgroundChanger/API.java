@@ -9,8 +9,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 
-public interface API {
+interface API {
 
+
+	String getTypeOfAPI();
 
 	String makeUrl(String subUrl);
 
@@ -34,7 +36,8 @@ public interface API {
 		StringBuilder response = new StringBuilder();
 
 		//save everything into the String
-		response.append(in.readLine());
+		response.append(in != null ? in.readLine() : null);
+		assert in != null;
 		in.close();
 
 		//get the last link in the response(always the link to image)
@@ -73,7 +76,7 @@ public interface API {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(image.getType());
+		System.out.println(image != null ? image.getType() : 0);
 		return image;
 
 	}

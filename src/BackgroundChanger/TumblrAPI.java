@@ -1,11 +1,12 @@
 package BackgroundChanger;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.net.URL;
-
 
 public class TumblrAPI implements API {
+
+	@Override
+	public String getTypeOfAPI() {
+		return "Tumblr";
+	}
 
 	@Override
 	public String makeUrl(String subUrl) {

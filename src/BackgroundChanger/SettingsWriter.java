@@ -4,53 +4,37 @@ package BackgroundChanger;
 import org.ini4j.Ini;
 
 import java.io.IOException;
-import java.sql.Time;
-import java.time.LocalTime;
-import java.util.Date;
-import java.util.Map;
 
-public class SettingsWriter {
+class SettingsWriter {
 
-	public void writeInterval(String interval){
 
-		try {
 
-			Ini ini = new Ini(SettingsWindow.SETTINGS);
-			ini.put("settings", "interval", interval);
-			System.out.println(interval);
+	public void writeSettings(String stringToStore, Settings setting){
+		Ini ini = null;
+		try{
+			ini = new Ini(SettingsWindow.SETTINGS);
+			ini.put("settings", setting.toString(), stringToStore);
 			ini.store();
-		} catch (IOException e) {
+		}catch (IOException e){
 			e.printStackTrace();
-		}
-
-	}
-
-	public void writeAutostart(boolean autostart){
-
-		try {
-
-			Ini ini = new Ini(SettingsWindow.SETTINGS);
-			ini.put("settings", "autostart", Boolean.toString(autostart));
-			ini.store();
-
-
-		} catch (IOException e) {
-			e.printStackTrace();
+		}finally{
+			assert ini != null;
+			ini.clear();
 		}
 
 	}
 
 	public void writeHistory(String url){
-
+		Ini ini = null;
 		try {
-
-			Ini ini = new Ini(SettingsWindow.SETTINGS);
-			ini.put("history", Long.toString(System.currentTimeMillis() / 1000) , url);
+			ini = new Ini(SettingsWindow.SETTINGS);
+			ini.put("history", Long.toString(System.currentTimeMillis()) , url);
 			ini.store();
-
-
 		} catch (IOException e) {
 			e.printStackTrace();
+		}finally{
+			assert ini != null;
+			ini.clear();
 		}
 	}
 
