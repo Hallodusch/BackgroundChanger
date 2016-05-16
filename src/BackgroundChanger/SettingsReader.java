@@ -3,7 +3,6 @@ package BackgroundChanger;
 
 import org.ini4j.Ini;
 import org.ini4j.Profile;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

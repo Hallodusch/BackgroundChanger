@@ -28,6 +28,12 @@ class SettingsWriter {
 		Ini ini = null;
 		try {
 			ini = new Ini(SettingsWindow.SETTINGS);
+			try{
+				ini.getAll("history");
+			}catch(NullPointerException e){
+				ini.add("history");
+				ini.store();
+			}
 			ini.put("history", Long.toString(System.currentTimeMillis()) , url);
 			ini.store();
 		} catch (IOException e) {

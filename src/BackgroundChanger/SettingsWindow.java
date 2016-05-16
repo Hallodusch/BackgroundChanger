@@ -9,8 +9,7 @@ import java.util.Enumeration;
 
 class SettingsWindow extends JFrame {
 
-	public static final File SETTINGS = new File("src/settings.ini");
-	// --Commented out by Inspection (16.05.2016 15:07):public static final String[] INTERVALS = {"10min", "30min", "60min", "12h", "24h", "Restart"};
+	public static final File SETTINGS = new File("settings.ini");
 	private static final SettingsWriter writer = new SettingsWriter();
 	private static final SettingsReader reader = new SettingsReader();
 
@@ -99,6 +98,8 @@ class SettingsWindow extends JFrame {
 		writer.writeSettings(selectedFile.toString(), Settings.SaveLocation);
 		writer.writeSettings(String.valueOf(chkSaveImages.isSelected()), Settings.LocalSaveToggle);
 		writer.writeSettings(String.valueOf(chkInterval.isSelected()), Settings.IntervalToggle);
+
+		BackgroundChanger.scheduleImageChange(true);
 
 		closeWindow(e);
 	}
