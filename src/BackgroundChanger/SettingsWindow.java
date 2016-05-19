@@ -7,7 +7,9 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.Enumeration;
 
-
+/**
+ * Das Fenster mit allen Einstellungen.
+ */
 class SettingsWindow extends JFrame {
 
     public static final File SETTINGS = new File("settings.ini");
@@ -37,6 +39,10 @@ class SettingsWindow extends JFrame {
     private JRadioButton rad10h;
     private JRadioButton radRestart;
 
+    /**
+     * Default-Konstruktor, baut das Fenster.
+     *
+     */
     public SettingsWindow() {
         super("Einstellungen");
 
@@ -85,10 +91,20 @@ class SettingsWindow extends JFrame {
         pack();
     }
 
+    /**
+     * Schliesst das Fenster.
+     *
+     * @param e
+     */
     private void closeWindow(ActionEvent e) {
         SwingUtilities.getWindowAncestor((JButton) e.getSource()).dispose();
     }
 
+    /**
+     * Speichert alle Einstellungen ins ini-File und schliesst dann das Fenster.
+     *
+     * @param e
+     */
     private void confirmAction(ActionEvent e) {
 
         for (Enumeration<AbstractButton> b = bg.getElements(); b.hasMoreElements(); ) {

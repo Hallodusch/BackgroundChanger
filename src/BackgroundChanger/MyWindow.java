@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
+/**
+ * Klasse für das normale User Interface,
+ */
 class MyWindow extends JFrame {
 
     private final Changer changer = new Changer();
@@ -28,6 +31,9 @@ class MyWindow extends JFrame {
     private JPanel rootPanel;
 
 
+    /**
+     * Default-Konstruktor macht das Fenster.
+     */
     public MyWindow() {
         super("Background Changer");
 
@@ -60,6 +66,9 @@ class MyWindow extends JFrame {
     }
 
 
+    /**
+     * Nimmt den Verlauf aus dem ini-File und stellt ihn in der Liste dar.
+     */
     private void updateHistoryList() {
 
         SettingsReader reader = new SettingsReader();
@@ -77,7 +86,13 @@ class MyWindow extends JFrame {
 
     }
 
-    public void setInternetImage(String subUrl, API api) {
+    /**
+     * Nimmt ein Bild von einer Website.
+     *
+     * @param subUrl Teil des Links, vom User definiert.
+     * @param api Die API, wird durch den Button, der gedrückt wurde, definiert.
+     */
+    void setInternetImage(String subUrl, API api) {
         if ("".equals(subUrl)) {
             JOptionPane.showMessageDialog(getContentPane(), "Sie haben kein Subreddit angegeben.");
         } else {
@@ -89,6 +104,11 @@ class MyWindow extends JFrame {
 
     }
 
+    /**
+     * Nimmt ein lokales Bild und macht dieses zum Desktophintergrund.
+     *
+     * @param selectedFile Das vom User ausgeählte File.
+     */
     private void setLocalImage(File selectedFile) {
         if (!"".equals(selectedFile.getName())) {
 
