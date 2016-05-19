@@ -8,14 +8,37 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-
+/**
+ * Definiert, wie die Websiten ihre Daten holen.
+ */
 interface API {
 
-
+    /**
+     * Gibt die Art von API der Klasse zurück.
+     *
+     * @return Die Art von API dieser Klasse.
+     */
 	String getTypeOfAPI();
 
+    /**
+     * Nimmt einen Teil des Links und wandelt zu einem vollen Link um.
+     *
+     * @param subUrl Sublink, der von Benutzer eingegeben wurde.
+     * @return String: Voller Link, z.B. zum Tumblr-Blog.
+     */
 	String makeUrl(String subUrl);
 
+    /**
+     * Gibt den Link zu einem individuellen Bild zurück.
+     *
+     * <p>
+     *     Nimmt den vollen String, z.B. zu einem Blog, und fordert den Link zun einem Bild.
+     * </p>
+     *
+     * @param url Link zum Blog, Subreddit oder ähnlichem.
+     * @return @code link Der Link zum Bild.
+     * @throws Exception
+     */
 	default String requestLink(String url) throws Exception {
 		//Open the connection
 		URL obj = new URL(url);
@@ -55,6 +78,12 @@ interface API {
 		return link;
 	}
 
+    /**
+     * Wandelt den Link als String zu einer URL um.
+     *
+     * @param url Der Link in String form.
+     * @return @code imageUrl Link in URL form.
+     */
 	default URL giveLinkToImage(String url) {
 		URL imageUrl = null;
 		try {
@@ -66,6 +95,12 @@ interface API {
 		return imageUrl;
 	}
 
+    /**
+     * Nimmt die URL zu einem Bild und lädt das Bild herunter.
+     *
+     * @param imageUrl Die URL zum Bild.
+     * @return @code image Das Bild der Website.
+     */
 	default BufferedImage requestData(URL imageUrl) {
 
 		BufferedImage image = null;

@@ -9,11 +9,17 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-
+/**
+ * Klasse zum lesen des ini-Files.
+ */
 class SettingsReader {
 
-
-
+    /**
+     * Liest die Einstellungen aus dem ini-File.
+     *
+     * @param setting Die gewünschte Einstellung.
+     * @return String: Den Inhalt der Einstellungen.
+     */
 	public String readSettings(Settings setting){
 
 		Ini ini = null;
@@ -27,6 +33,17 @@ class SettingsReader {
 
 	}
 
+    /**
+     * Gibt den Verlauf der letzt benutzten Webseiten zurück.
+     *
+     * <p>
+     *     Der Key ist immer ein Zahlenstring, der den Speicherzeitpunkt darstellt.
+     *     Das Value ist ein String mit Typ der Website und deren subURL.
+     * </p>
+     *
+     *
+     * @return @code strings Die Liste des Verlaufs mit Key und Value.
+     */
 	public List<DataHelper> readHistory(){
 
 		Ini ini;
@@ -45,7 +62,9 @@ class SettingsReader {
 				subSet = section.keySet();
 
 				//add all the key-value pairs into the List
-				strings.addAll(subSet.stream().map(optionKey -> new DataHelper(optionKey.toString(), section.get(optionKey).toString())).collect(Collectors.toList()));
+				strings.addAll(subSet.stream().map(
+                        optionKey -> new DataHelper(optionKey.toString(), section.get(optionKey).toString()))
+                        .collect(Collectors.toList()));
 				//exit loop after history section
 				break;
 			}

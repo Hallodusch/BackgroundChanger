@@ -1,6 +1,7 @@
 package BackgroundChanger;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -9,102 +10,193 @@ import java.util.Enumeration;
 
 class SettingsWindow extends JFrame {
 
-	public static final File SETTINGS = new File("settings.ini");
-	private static final SettingsWriter writer = new SettingsWriter();
-	private static final SettingsReader reader = new SettingsReader();
+    public static final File SETTINGS = new File("settings.ini");
+    private static final SettingsWriter writer = new SettingsWriter();
+    private static final SettingsReader reader = new SettingsReader();
 
-	private final ButtonGroup bg;
-	private File selectedFile;
-	private JPanel rootPanel;
-	private JLabel titleLabel;
-	private JPanel settingsPanel;
-	private JCheckBox chkAutostart;
-	private JCheckBox chkSaveImages;
-	private JTextField saveLocation;
-	private JButton btnCancel;
-	private JButton btnSave;
-	private JLabel intervalLabel;
-	private JLabel saveLocationLabel;
-	private JLabel saveImageLabel;
-	private JLabel autostartLabel;
-	private JLabel intervalEnableLabel;
-	private JCheckBox chkInterval;
-	private JRadioButton rad10;
-	private JRadioButton rad30;
-	private JRadioButton rad60;
-	private JRadioButton rad2h;
-	private JRadioButton rad10h;
-	private JRadioButton radRestart;
+    private final ButtonGroup bg;
+    private File selectedFile;
+    private JPanel rootPanel;
+    private JLabel titleLabel;
+    private JPanel settingsPanel;
+    private JCheckBox chkAutostart;
+    private JCheckBox chkSaveImages;
+    private JTextField saveLocation;
+    private JButton btnCancel;
+    private JButton btnSave;
+    private JLabel intervalLabel;
+    private JLabel saveLocationLabel;
+    private JLabel saveImageLabel;
+    private JLabel autostartLabel;
+    private JLabel intervalEnableLabel;
+    private JCheckBox chkInterval;
+    private JRadioButton rad10;
+    private JRadioButton rad30;
+    private JRadioButton rad60;
+    private JRadioButton rad2h;
+    private JRadioButton rad10h;
+    private JRadioButton radRestart;
 
-	public SettingsWindow(){
-		super("Einstellungen");
+    public SettingsWindow() {
+        super("Einstellungen");
 
-		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		setContentPane(rootPanel);
-		setVisible(true);
-		setLocationRelativeTo(getParent());
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setContentPane(rootPanel);
+        setVisible(true);
+        setLocationRelativeTo(getParent());
 
-		bg = new ButtonGroup();
-		bg.add(rad10);
-		bg.add(rad30);
-		bg.add(rad60);
-		bg.add(rad2h);
-		bg.add(rad10h);
-		bg.add(radRestart);
+        bg = new ButtonGroup();
+        bg.add(rad10);
+        bg.add(rad30);
+        bg.add(rad60);
+        bg.add(rad2h);
+        bg.add(rad10h);
+        bg.add(radRestart);
 
-		chkInterval.setSelected(Boolean.parseBoolean(reader.readSettings(Settings.IntervalToggle)));
-		chkAutostart.setSelected(Boolean.parseBoolean(reader.readSettings(Settings.Autostart)));
-		chkSaveImages.setSelected(Boolean.parseBoolean(reader.readSettings(Settings.LocalSaveToggle)));
+        chkInterval.setSelected(Boolean.parseBoolean(reader.readSettings(Settings.IntervalToggle)));
+        chkAutostart.setSelected(Boolean.parseBoolean(reader.readSettings(Settings.Autostart)));
+        chkSaveImages.setSelected(Boolean.parseBoolean(reader.readSettings(Settings.LocalSaveToggle)));
 
-		String interval = reader.readSettings(Settings.Interval);
-		for(Enumeration<AbstractButton> b = bg.getElements(); b.hasMoreElements();) {
-			AbstractButton ab = b.nextElement();
-			if(ab.getText().equals(interval)) ab.setSelected(true);
-		}
+        String interval = reader.readSettings(Settings.Interval);
+        for (Enumeration<AbstractButton> b = bg.getElements(); b.hasMoreElements(); ) {
+            AbstractButton ab = b.nextElement();
+            if (ab.getText().equals(interval)) ab.setSelected(true);
+        }
 
-		selectedFile = new File(reader.readSettings(Settings.SaveLocation));
-		saveLocation.setText(selectedFile.getAbsoluteFile().toString());
+        selectedFile = new File(reader.readSettings(Settings.SaveLocation));
+        saveLocation.setText(selectedFile.getAbsoluteFile().toString());
 
-		saveLocation.addMouseListener(new ActionAdapter(){
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setCurrentDirectory(selectedFile);
-				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				int result = fileChooser.showOpenDialog(fileChooser);
-				if (result == JFileChooser.APPROVE_OPTION) {
-					saveLocation.setText(fileChooser.getSelectedFile().getAbsolutePath());
-					selectedFile = fileChooser.getSelectedFile();
-				}
-			}
-		});
-		btnCancel.addActionListener(this::closeWindow);
-		btnSave.addActionListener(this::confirmAction);
+        saveLocation.addMouseListener(new ActionAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setCurrentDirectory(selectedFile);
+                fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                int result = fileChooser.showOpenDialog(fileChooser);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    saveLocation.setText(fileChooser.getSelectedFile().getAbsolutePath());
+                    selectedFile = fileChooser.getSelectedFile();
+                }
+            }
+        });
+        btnCancel.addActionListener(this::closeWindow);
+        btnSave.addActionListener(this::confirmAction);
 
-		pack();
-	}
+        pack();
+    }
 
-	private void closeWindow(ActionEvent e){
-		SwingUtilities.getWindowAncestor((JButton) e.getSource()).dispose();
-	}
+    private void closeWindow(ActionEvent e) {
+        SwingUtilities.getWindowAncestor((JButton) e.getSource()).dispose();
+    }
 
-	private void confirmAction(ActionEvent e){
+    private void confirmAction(ActionEvent e) {
 
-		for(Enumeration<AbstractButton> b = bg.getElements(); b.hasMoreElements();) {
-			AbstractButton ab = b.nextElement();
-			if(ab.isSelected()){ writer.writeSettings(ab.getText(), Settings.Interval); break;}
-		}
-		writer.writeSettings(String.valueOf(chkAutostart.isSelected()), Settings.Autostart);
-		writer.writeSettings(selectedFile.toString(), Settings.SaveLocation);
-		writer.writeSettings(String.valueOf(chkSaveImages.isSelected()), Settings.LocalSaveToggle);
-		writer.writeSettings(String.valueOf(chkInterval.isSelected()), Settings.IntervalToggle);
+        for (Enumeration<AbstractButton> b = bg.getElements(); b.hasMoreElements(); ) {
+            AbstractButton ab = b.nextElement();
+            if (ab.isSelected()) {
+                writer.writeSettings(ab.getText(), Settings.Interval);
+                break;
+            }
+        }
+        writer.writeSettings(String.valueOf(chkAutostart.isSelected()), Settings.Autostart);
+        writer.writeSettings(selectedFile.toString(), Settings.SaveLocation);
+        writer.writeSettings(String.valueOf(chkSaveImages.isSelected()), Settings.LocalSaveToggle);
+        writer.writeSettings(String.valueOf(chkInterval.isSelected()), Settings.IntervalToggle);
 
-		BackgroundChanger.scheduleImageChange(true);
+        BackgroundChanger.scheduleImageChange(true);
 
-		closeWindow(e);
-	}
-
-
+        closeWindow(e);
+    }
 
 
+    {
+// GUI initializer generated by IntelliJ IDEA GUI Designer
+// >>> IMPORTANT!! <<<
+// DO NOT EDIT OR ADD ANY CODE HERE!
+        $$$setupUI$$$();
+    }
+
+    /**
+     * Method generated by IntelliJ IDEA GUI Designer
+     * >>> IMPORTANT!! <<<
+     * DO NOT edit this method OR call it in your code!
+     *
+     * @noinspection ALL
+     */
+    private void $$$setupUI$$$() {
+        rootPanel = new JPanel();
+        rootPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(2, 1, new Insets(10, 10, 10, 10), -1, -1));
+        titleLabel = new JLabel();
+        titleLabel.setFont(new Font(titleLabel.getFont().getName(), Font.BOLD, 26));
+        titleLabel.setHorizontalAlignment(4);
+        titleLabel.setText("Einstellungen");
+        rootPanel.add(titleLabel, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        settingsPanel = new JPanel();
+        settingsPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(6, 2, new Insets(0, 0, 0, 0), -1, -1));
+        rootPanel.add(settingsPanel, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        autostartLabel = new JLabel();
+        autostartLabel.setText("Automatisch starten");
+        settingsPanel.add(autostartLabel, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        chkAutostart = new JCheckBox();
+        chkAutostart.setText("");
+        settingsPanel.add(chkAutostart, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        saveImageLabel = new JLabel();
+        saveImageLabel.setText("Bilder speichern");
+        settingsPanel.add(saveImageLabel, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        chkSaveImages = new JCheckBox();
+        chkSaveImages.setText("");
+        settingsPanel.add(chkSaveImages, new com.intellij.uiDesigner.core.GridConstraints(1, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        saveLocationLabel = new JLabel();
+        saveLocationLabel.setText("Speicherverzeichnis");
+        settingsPanel.add(saveLocationLabel, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        saveLocation = new JTextField();
+        saveLocation.setEditable(false);
+        saveLocation.setEnabled(true);
+        settingsPanel.add(saveLocation, new com.intellij.uiDesigner.core.GridConstraints(2, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, new Dimension(250, -1), null, null, 0, false));
+        intervalLabel = new JLabel();
+        intervalLabel.setText("Intervall");
+        settingsPanel.add(intervalLabel, new com.intellij.uiDesigner.core.GridConstraints(4, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        btnCancel = new JButton();
+        btnCancel.setText("Abbrechen");
+        settingsPanel.add(btnCancel, new com.intellij.uiDesigner.core.GridConstraints(5, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        btnSave = new JButton();
+        btnSave.setText("Einstellungen Speichern");
+        settingsPanel.add(btnSave, new com.intellij.uiDesigner.core.GridConstraints(5, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        intervalEnableLabel = new JLabel();
+        intervalEnableLabel.setText("Automatisch Bilder wechseln");
+        settingsPanel.add(intervalEnableLabel, new com.intellij.uiDesigner.core.GridConstraints(3, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        chkInterval = new JCheckBox();
+        chkInterval.setText("");
+        settingsPanel.add(chkInterval, new com.intellij.uiDesigner.core.GridConstraints(3, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JPanel panel1 = new JPanel();
+        panel1.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(2, 3, new Insets(0, 0, 0, 0), -1, -1));
+        settingsPanel.add(panel1, new com.intellij.uiDesigner.core.GridConstraints(4, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        rad10 = new JRadioButton();
+        rad10.setText("10min");
+        panel1.add(rad10, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        rad30 = new JRadioButton();
+        rad30.setText("30min");
+        panel1.add(rad30, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        rad60 = new JRadioButton();
+        rad60.setText("60min");
+        panel1.add(rad60, new com.intellij.uiDesigner.core.GridConstraints(0, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        rad2h = new JRadioButton();
+        rad2h.setLabel("2h");
+        rad2h.setText("2h");
+        panel1.add(rad2h, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        rad10h = new JRadioButton();
+        rad10h.setLabel("10h");
+        rad10h.setText("10h");
+        panel1.add(rad10h, new com.intellij.uiDesigner.core.GridConstraints(1, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        radRestart = new JRadioButton();
+        radRestart.setText("Jeden Neustart");
+        panel1.add(radRestart, new com.intellij.uiDesigner.core.GridConstraints(1, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+    }
+
+    /**
+     * @noinspection ALL
+     */
+    public JComponent $$$getRootComponent$$$() {
+        return rootPanel;
+    }
 }

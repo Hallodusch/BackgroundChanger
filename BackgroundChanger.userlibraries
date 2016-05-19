@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="lib">
+    <archive path="C:/Users/vmadmin/workspace/BackgroundChanger/lib/jna-4.1.0.jar" />
+    <archive path="C:/Users/vmadmin/workspace/BackgroundChanger/lib/ini4j-0.5.4.jar" />
+    <archive path="C:/Users/vmadmin/workspace/BackgroundChanger/lib/jna-platform-4.1.0.jar" />
+  </library>
+</eclipse-userlibraries>
+

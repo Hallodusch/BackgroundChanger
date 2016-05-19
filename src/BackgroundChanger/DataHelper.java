@@ -1,7 +1,7 @@
 package BackgroundChanger;
 
 /**
- * Created by ben on 16.05.2016.
+ * Helferklasse zum Speichern der Einträge im ini-File
  */
 class DataHelper {
 

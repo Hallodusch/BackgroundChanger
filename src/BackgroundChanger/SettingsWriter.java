@@ -5,10 +5,17 @@ import org.ini4j.Ini;
 
 import java.io.IOException;
 
+/**
+ * Klasse zum schreiben von Daten in das ini-File.
+ */
 class SettingsWriter {
 
-
-
+    /**
+     * Speichert einen String in eine Einstellung des ini-Files.
+     *
+     * @param stringToStore Der String, der gespeichert werden soll.
+     * @param setting Die Einstellung, die verändert wird.
+     */
 	public void writeSettings(String stringToStore, Settings setting){
 		Ini ini = null;
 		try{
@@ -24,7 +31,13 @@ class SettingsWriter {
 
 	}
 
-	public void writeHistory(String url){
+
+    /**
+     * Speichert einen String unter dem jetzigen Zeitpunkt in den Verlauf des ini-Files.
+     *
+     * @param url Die Url, die zuletzt benutzt wurde.
+     */
+    public void writeHistory(String url){
 		Ini ini = null;
 		try {
 			ini = new Ini(SettingsWindow.SETTINGS);

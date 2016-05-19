@@ -1,7 +1,6 @@
 package BackgroundChanger;
 
 import org.ini4j.Ini;
-
 import javax.swing.*;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,11 +12,30 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Main Klasse der Applikation. 
+ * 
+ * <p>
+ * Erstellt das ini-File.
+ * Öffnet das GUI.
+ * Startet einen Thread für automatischen Ablauf.
+ *
+ */
 class BackgroundChanger extends Thread{
 
 	private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(4);
 	private static MyWindow window;
 
+	/**
+	 * main-Methode. 
+	 * 
+	 * <p>
+	 * Erstellt das ini-File.
+	 * Öffnet das GUI.
+	 * Startet einen Thread für automatischen Ablauf.
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
 		initializeIniFile();
@@ -37,6 +55,11 @@ class BackgroundChanger extends Thread{
 
 	}
 
+	/**
+	 * Startet einen Thread für einen automatischen Bildwechsel.
+	 * 
+	 * @param wasInvokedFromSettings True = Methode wurde aus dem Einstellungs-Fenster aufgerufen.
+	 */
 	static void scheduleImageChange(boolean wasInvokedFromSettings){
 
 		if(isIntervalEnabled()){
@@ -53,6 +76,11 @@ class BackgroundChanger extends Thread{
 
 	}
 
+	/**
+	 * Wechselt das Hintergrundbild.
+	 *
+	 * @param lastAction Die letzt benutzte Website und dessen Sublink.
+	 */
 	private static void updateImage(String[] lastAction){
 
 		if(lastAction[0].equals("Reddit")) window.setInternetImage(lastAction[1], new RedditAPI());
@@ -60,6 +88,11 @@ class BackgroundChanger extends Thread{
 
 	}
 
+	/**
+	 * Gibt die zuletzt benutzte Website und deren Sublink zurück.
+	 *
+	 * @return @code actionToDo
+	 */
 	private static String[] getLastAction(){
 
 		SettingsReader reader = new SettingsReader();
@@ -74,6 +107,11 @@ class BackgroundChanger extends Thread{
 		return actionToDo;
 	}
 
+	/**
+	 * Gibt das momentan ausgewählte Intervall zurück.
+	 *
+	 * @return @code interval
+	 */
 	private static int getInterval(){
 
 		SettingsReader reader = new SettingsReader();
@@ -92,6 +130,10 @@ class BackgroundChanger extends Thread{
 
 	}
 
+	/**
+	 * Deaktiviert die Autostartfunktionalität.
+	 *
+	 */
 	private static void disableAutostart(){
 		File batchFile = new File(System.getProperty("user.home") +
 										  "/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/BackgroundChanger.bat");
@@ -109,11 +151,20 @@ class BackgroundChanger extends Thread{
 		}
 	}
 
+	/**
+	 * Schaut, ob die Autostartfunktionalität aktiviert ist.
+	 *
+	 * @return true, wenn die Autostartfunktionalität aktiviert ist.
+	 */
 	private static boolean isAutostart(){
 		SettingsReader reader = new SettingsReader();
 		return Boolean.parseBoolean(reader.readSettings(Settings.Autostart));
 	}
 
+	/**
+	 * Aktiviert die Autostart funktion.
+	 *
+	 */
 	private static void enableAutostart(){
 		File batchFile = new File(System.getProperty("user.home") +
 				"/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/BackgroundChanger.bat");
@@ -132,11 +183,29 @@ class BackgroundChanger extends Thread{
 
 	}
 
+	/**
+	 * Schaut, ob die Intervallfunktionalität aktiviert ist.
+	 *
+	 * @return true, wenn die Intervallfunktionalität aktiviert ist
+	 */
 	static boolean isIntervalEnabled(){
 		SettingsReader reader = new SettingsReader();
 		return Boolean.parseBoolean(reader.readSettings(Settings.IntervalToggle));
 	}
 
+	/**
+	 * Erstellt das ini-File, falls keines existiert.
+	 * 
+	 * <p>
+	 * Default Values für Einstellungen:
+	 * <ul>
+	 * <li> Autostart: true
+	 * <li> Intervall: true
+	 * <li> Intervall: 10 Minuten
+	 * <li> Speicherplatz: gleiches Verzeichnis
+	 * <li> Lokales Speichern: Aktiviert
+	 * 
+	 */
 	private static void initializeIniFile(){
 
 		Ini ini;

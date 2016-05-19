@@ -5,7 +5,6 @@ import com.sun.jna.platform.win32.WinDef.UINT_PTR;
 import com.sun.jna.win32.StdCallLibrary;
 import com.sun.jna.win32.W32APIFunctionMapper;
 import com.sun.jna.win32.W32APITypeMapper;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -15,10 +14,17 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.util.HashMap;
 
+/**
+ * Ermöglicht den Wechsel des Hintergrundbilds.
+ *
+ */
 public class Changer {
 
 	private static final SettingsReader reader = new SettingsReader();
 
+    /**
+     * Ermöglicht Zugriff auf Windows Registry
+     */
 	public interface SPI extends StdCallLibrary {
 
 		long SPI_SETDESKWALLPAPER = 20;
@@ -43,6 +49,13 @@ public class Changer {
 
 	}
 
+    /**
+     * Nimmt ein File und wechselt das Hintergrundbild von Windows zu diesem File.
+     *
+     * @param file Das File, das zum neuen Hintergrund wird.
+     * @return true Wenn der Wechsel des Hintergrundbilds erfolgreich war.
+     * @return false Wenn der Wechsel nicht funktioniert hat.
+     */
 	public boolean useLocalImage(File file) {
 		System.out.println("Setze Hintergrund: " + file.getAbsolutePath());
 		File jpgFile = convertToJPG(file);
@@ -64,24 +77,36 @@ public class Changer {
 	}
 
 
+    /**
+     * Wechselt den Windowshintergrund zu einem Bild einer Website.
+     *
+     * <p>
+     *     Nimmt einen Teil einer URL und den Typ von Website.
+     *     Lädt das Bild herunter.
+     *     Setzt den neuen Windowshintergrund.
+     *     Löscht das Bild, wenn Speicherfunktion nicht aktiviert ist.
+     * </p>
+     *
+     * @param subUrl Der Link zum Blog oder Subreddit.
+     * @param api Die API um das Bild zu holen.
+     * @return true Wenn der Wechsel des Hintergrundbildes erfolgreich war.
+     * @return false Wenn der Wechsel nicht funktioniert hat.
+     */
 	public boolean setImage(String subUrl, API api) {
 
-		System.out.println("changer in function");
-		//Get the URL to the actual image
+        //Get the URL to the actual image
 		String totalLink = api.makeUrl(subUrl);
 		URL linkToImage = api.giveLinkToImage(totalLink);
 		//Get the image data from the link
 		BufferedImage image = api.requestData(linkToImage);
 		if (image != null) {
 			try {
-				System.out.println("changer in if");
 				String fileName = String.valueOf(System.currentTimeMillis());
 				//Save the image to the local hard disk
 				saveImageToDisk(image, linkToImage.toString(), fileName);
 				//change the background
 				File imageFile = new File(makeLocalPath(linkToImage.toString(), fileName));
 				useLocalImage(imageFile);
-				System.out.println("chagner after change");
 				if(!Boolean.parseBoolean(reader.readSettings(Settings.LocalSaveToggle))){
 					try{
 						System.out.println("Removing image: " + imageFile.getAbsolutePath());
@@ -102,13 +127,32 @@ public class Changer {
 		return false;
 	}
 
-	//make the local path to the image
+    /**
+     * Baut den Speicherort für ein heruntergeladenes Bild.
+     *
+     * @param linkToImage Ursprünglicher Link zum Bild.
+     * @param fileName Name des Bildes
+     * @return Den Speicherort eines Bildes.
+     */
 	private String makeLocalPath(String linkToImage, String fileName) {
 		return (reader.readSettings(Settings.SaveLocation)+ "/" + fileName + "." + getSuffix(linkToImage)); }
 
-	//return the suffix of the image (e.g. 'jpg')
+    /**
+     * Nimmt einen Link zu einem Bild und gibt den Filetyp zurück.
+     *
+     * @param url Den Link zum Bild.
+     * @return Den Filetyp eines Bildes als String.
+     */
 	private static String getSuffix(String url) { return url.substring(url.lastIndexOf(".") + 1, url.length()); }
 
+    /**
+     * Speichert ein angegebenes Bild lokal auf die Festplatte.
+     *
+     * @param img Das zu speichernde Bild.
+     * @param path Der Pfad zum Speicherort.
+     * @param fileName Der Name des Bilds nach dem Speichern.
+     * @throws IOException
+     */
 	private void saveImageToDisk(BufferedImage img, String path, String fileName) throws IOException {
 
 		//configure image correctly and prepare for writing
@@ -126,6 +170,14 @@ public class Changer {
 		}
 	}
 
+    /**
+     * Konvertiert Bilder zum .jpg-Format.
+     *
+     * @param f Das File, das konvertiert wird.
+     * @return @code newFile Das Bild in JPG-Form.
+     * @return @code f Wenn das File bereits .jpg ist.
+     * @return null Wenn das speichern nicht funktioniert hat.
+     */
 	private File convertToJPG(File f) {
 		String directory = f.getParent();
 		String name = f.getName();
